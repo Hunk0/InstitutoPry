@@ -12,7 +12,7 @@ if($administrador -> autenticar()){
 }*/
 $error=0;
 $administrador = new Administrador("", "", "", $correo, $clave);
-  //$profesor = new Profesor("", "" , $corro, $clave);
+  $profesor = new Profesor("", "", "" ,$correo="", $clave="", "");
   $estudiante = new Estudiante("", "", "" ,$correo, $clave, "", "", "", "");
     if($administrador -> autenticar()){
         $_SESSION['id'] = $administrador -> getId();
@@ -20,11 +20,12 @@ $administrador = new Administrador("", "", "", $correo, $clave);
         $pid= base64_encode("presentacion/administrador/sesionAdministrador.php");
         header('Location: index.php?pid=' . $pid);
     }
-   /* else if( $profesor -> autenticar()){    
+    else if( $profesor -> autenticar()){    
         $_SESSION['id'] = $profesor -> getId();
+        $_SESSION['rol'] = "profesor";
         $pid= base64_encode("presentacion/profesor/sesionProfesor.php");
         header('Location: index.php?pid=' . $pid);
-    }*/
+    }
     else if($estudiante -> autenticar()){
         $_SESSION['id'] = $estudiante -> getId();
         $_SESSION['rol'] = "estudiante";

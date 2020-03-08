@@ -70,7 +70,7 @@ class Estudiante extends Persona{
 
         for($i=0; $i<$this->conexion->numFilas() ; $i++){
             $registro = $this->conexion->extraer();
-            $registros[$i] = new Estudiante($registro[0], $registro[1], $registro[2], $registro[3],  $registro[4], $registro[5], $registro[6], $registro[7], $registro[8]);
+            $registros[$i] = new Estudiante($registro[0], $registro[1], $registro[2], $registro[3],  "", $registro[4], $registro[5], $registro[6], $registro[7]);
         }
 
         $this -> conexion -> cerrar();
@@ -89,7 +89,36 @@ class Estudiante extends Persona{
         }
     }
 
+    function consultarCursos(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> estudianteDAO -> consultarCursos());
+        $registros = array();
 
+        for($i=0; $i<$this->conexion->numFilas() ; $i++){
+            $registro = $this->conexion->extraer();
+            $registros[$i] = new Curso($registro[0], "", "", "",  "", $registro[1], "", $registro[2]);
+            $registros[$i] -> consultar();
+        }
+
+        $this -> conexion -> cerrar();
+        return $registros;
+    }
+
+    function consultarCurso($cursoid){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> estudianteDAO -> consultarCurso($cursoid));
+        if($this -> conexion -> numFilas() == 1){
+            $resultado = $this -> conexion -> extraer();
+            $this -> id = $resultado[0];            
+            $curso = new Curso($resultado[0], "", "", "",  "", $resultado[1], "", $resultado[2]);;
+            $curso -> consultar();
+            $this -> conexion -> cerrar();
+            return $curso;
+        }else{
+            $this -> conexion -> cerrar();
+            return null;
+        }   
+    }
 
 
     function getId(){

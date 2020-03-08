@@ -44,7 +44,20 @@ class EstudianteDAO{
     }
 
     function consultarTodos(){
-        return "select idestudiante, nombres, apellidos, correo, cedula, telefono, direccion, foto, estado from estudiante";
+        return "SELECT idestudiante, nombres, apellidos, correo, cedula, telefono, direccion, foto 
+                FROM estudiante";
+    }
+
+    function consultarCursos(){
+        return "SELECT curso_idcurso, modalidad_idmodalidad, estado
+                FROM matricula
+                WHERE estudiante_idestudiante =".$this -> id;
+    }
+
+    function consultarCurso($cursoid){
+        return "SELECT curso_idcurso, modalidad_idmodalidad, estado
+                FROM matricula
+                WHERE estudiante_idestudiante =".$this -> id." AND curso_idcurso=".$cursoid;
     }
 
     

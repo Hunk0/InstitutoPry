@@ -2,7 +2,10 @@
 session_start();
 require 'logica/Persona.php';
 require 'logica/Administrador.php';
+require 'logica/Profesor.php';
 require 'logica/Estudiante.php';
+
+require 'logica/Curso.php';
 ?>
 
 <head>

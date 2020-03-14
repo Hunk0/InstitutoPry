@@ -11,24 +11,18 @@ class Curso{
     private  $descripccion;
     private  $fecha;
     private $director;
-    private $modalidad;
-    private  $valor;
-    private $estado;
     
     private $conexion;
     private $cursoDAO;
 
-    function Curso($id="",  $nombre="",  $descripccion="",  $fecha="", $director="", $modalidad="",  $valor="", $estado="" ){
+    function Curso($id="",  $nombre="",  $descripccion="",  $fecha="", $director="" ){
         $this -> id = $id;
         $this -> nombre = $nombre;
         $this -> descripccion = $descripccion;
         $this -> fecha = $fecha;
         $this -> director = $director;
-        $this -> modalidad = $modalidad;
-        $this -> valor = $valor;
-        $this -> estado = $estado;
         $this -> conexion = new Conexion();
-        $this -> cursoDAO = new CursoDAO($id,  $nombre,  $descripccion,  $fecha, $director, $modalidad,  $valor, $estado );
+        $this -> cursoDAO = new CursoDAO($id,  $nombre,  $descripccion,  $fecha, $director);
     }
 
 
@@ -40,7 +34,7 @@ class Curso{
 
     function consultar(){
         $this -> conexion -> abrir();
-        $this -> conexion -> ejecutar($this -> cursoDAO -> consultarCurso());
+        $this -> conexion -> ejecutar($this -> cursoDAO -> consultar());
         $resultado = $this -> conexion -> extraer();
 
         $this -> id = $resultado[0];
@@ -48,8 +42,16 @@ class Curso{
         $this -> descripccion = $resultado[2];
         $this -> fecha = $resultado[3];
         $this -> director = $resultado[4];
-        $this -> valor = $resultado[5];
 
+        $this -> conexion -> cerrar();
+    }
+
+    function ultimoId(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> cursoDAO -> ultimoId());
+        $resultado = $this -> conexion -> extraer();
+        $this -> id = $resultado[0];
+        $this -> cursoDAO = new CursoDAO($resultado[0]);
         $this -> conexion -> cerrar();
     }
 
@@ -61,7 +63,7 @@ class Curso{
 
         for($i=0; $i<$this->conexion->numFilas() ; $i++){
             $registro = $this->conexion->extraer();
-            $registros[$i] = new Curso($registro[0], $registro[1], $registro[2], $registro[3],  $registro[4], $registro[5], $registro[6], $registro[7]);
+            $registros[$i] = new Curso($registro[0], $registro[1], $registro[2], $registro[3],  $registro[4], $registro[5], $registro[6]);
         }
 
         $this -> conexion -> cerrar();
@@ -95,13 +97,6 @@ class Curso{
         return $registros;
     }
 
-    function actualizarEstado($estudianteid){
-        $this -> conexion -> abrir();
-        $this -> conexion -> ejecutar($this -> cursoDAO -> actualizarEstado($estudianteid));
-        $this -> conexion -> cerrar();
-    }
-
-
     function getId(){
         return $this -> id;
     }
@@ -122,25 +117,12 @@ class Curso{
         return $this -> director;
     }
     
-    function getModalidad(){
-        return $this -> modalidad;
-    }
+    
 
     function getValor(){
         return $this -> valor;
     }
     
-    function getEstadoId(){
-        return $this -> estado; 
-    }
-    
-    function getEstado(){
-        if ($this -> estado == 0){
-            return "Esperando pago";
-        }else if ($this -> estado == 1){
-            return "Pago aceptado";
-        }
-    }
 
 }
 

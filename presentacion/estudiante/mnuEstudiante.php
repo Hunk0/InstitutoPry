@@ -1,4 +1,7 @@
-
+<?php
+  $estudiante = new Estudiante($_SESSION["id"]);
+  $estudiante -> consultar();
+?>
 
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark " style="background-color: #31569d !important;">
   <a class="navbar-brand"  href="index.php">
@@ -18,7 +21,7 @@
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" style="min-width: 0px; left: 50% !important;  right: auto !important;  text-align: center !important;  transform: translate(-50%, 0) !important;">
             <a class="dropdown-item" href="#">Mi cuenta</a>
-            <a class="dropdown-item" href="#">Mis cursos</a>
+            <a class="dropdown-item" href='index.php?pid=<?php echo base64_encode("presentacion/estudiante/sesionEstudiante.php")?>#Cursos'>Mis cursos</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href=<?php echo "index.php?salir=true"?>>Cerrar sesion</a>
           </div>

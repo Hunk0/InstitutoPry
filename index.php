@@ -1,11 +1,15 @@
 <?php
 session_start();
-require 'logica/Persona.php';
-require 'logica/Administrador.php';
-require 'logica/Profesor.php';
-require 'logica/Estudiante.php';
+require 'logica/Persona.php'; // <--
+require 'logica/Administrador.php'; // <--
+require 'logica/Profesor.php'; // <--
+require 'logica/Estudiante.php'; // <--
 
 require 'logica/Curso.php';
+require 'logica/Imagen.php';
+require 'logica/Matricula.php';
+require 'logica/Modalidad.php';
+require 'logica/Variante.php';
 ?>
 
 <head>
@@ -20,6 +24,7 @@ require 'logica/Curso.php';
         src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script
         src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        
     <script type="text/javascript">
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()

@@ -39,8 +39,9 @@ class EstudianteDAO{
     }
 
     function consultar(){
-        return "select idestudiante, nombres, apellidos, correo, cedula, telefono, direccion, foto, estado from estudiante 
-                       where idestudiante = '" . $this -> id . "'";
+        return "SELECT idestudiante, nombres, apellidos, correo, cedula, telefono, direccion, foto 
+                FROM estudiante 
+                WHERE idestudiante = '" . $this -> id . "'";
     }
 
     function consultarTodos(){
@@ -62,13 +63,10 @@ class EstudianteDAO{
 
     
     function existeCorreo(){
-        return "SELECT administrador.idadministrador
+        return "SELECT administrador.idadministrador OR profesor.idprofesor OR estudiante.idestudiante
                 FROM administrador
-                WHERE ( administrador.correo = '" . $this->correo . "'  OR ( SELECT profesor.idprofesor
-                                                                        FROM profesor
-                                                                        WHERE profesor.correo = '" . $this->correo . "' OR ( SELECT estudiante.idestudiante
-                                                                                                                        FROM estudiante
-                                                                                                                        WHERE estudiante.correo = '" . $this->correo . "')))";
+                INNER JOIN profesor, estudiante
+                WHERE administrador.correo = '" . $this->correo . "' OR profesor.correo = '" . $this->correo . "' OR estudiante.correo = '" . $this->correo . "';";
     }
 
     function actualizar(){

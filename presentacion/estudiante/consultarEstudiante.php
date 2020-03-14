@@ -49,16 +49,17 @@ $estudiantes = $estudiante->consultarTodos();
 								echo "<td>" . $e->getCorreo() . "</td>";
 								echo "<td>" . $e->getTel() . "</td>";
 
-								$cursos = $e->consultarCursos();
+								$matriculas = $e->consultarMatricula();
 								echo "<td>";
-										foreach ($cursos as $c){
-											if ($c->getEstadoId() == 0){
+										foreach ($matriculas as $m){
+											$c = $m->getCurso();
+											if ($m->getEstadoId() == 0){
 												echo "<a id='Curso" . $c->getId() . "' href='modalCurso.php?idCur=".$c->getId(). "&idEst=".$e->getId()."' data-toggle='modal' data-target='#modal'  > 
-														<span style='padding: .0.1rem 0.1rem; color : #343a40 !important;' class='fas fa-book' data-toggle='tooltip' class='tooltipLink' data-placement='top' data-original-title='".$c->getNombre()." (".$c->getEstado().")"."'></span> 
+														<span style='padding: .0.1rem 0.1rem; color : #343a40 !important;' class='fas fa-book' data-toggle='tooltip' class='tooltipLink' data-placement='top' data-original-title='".$c->getNombre()." (".$m->getEstado().")"."'></span> 
 													  </a>";
-											}else if ($c->getEstadoId() == 1){
+											}else if ($m->getEstadoId() == 1){
 												echo "<a id='Curso" . $c->getId() . "' href='modalCurso.php?idCur=".$c->getId(). "&idEst=".$e->getId()."' data-toggle='modal' data-target='#modal' > 
-														<span style='padding: .0.1rem 0.1rem; color : #28a745 !important;' class='fas fa-book' data-toggle='tooltip' class='tooltipLink' data-placement='top' data-original-title='".$c->getNombre()." (".$c->getEstado().")"."'></span> 
+														<span style='padding: .0.1rem 0.1rem; color : #28a745 !important;' class='fas fa-book' data-toggle='tooltip' class='tooltipLink' data-placement='top' data-original-title='".$c->getNombre()." (".$m->getEstado().")"."'></span> 
 													  </a>";
 											}											
 										}

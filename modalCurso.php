@@ -5,11 +5,17 @@
     require_once 'logica/Estudiante.php';
     
     require_once 'logica/Curso.php';
+    require_once 'logica/Modalidad.php';
+    require_once 'logica/Matricula.php';
 
     if(isset($_GET["idCur"])){
         if(isset($_GET["idEst"])){       
-            $estudiante = new Estudiante($_GET["idEst"]); 
-            $curso = $estudiante -> ConsultarCurso($_GET["idCur"]);
+            $matricula = new Matricula($_GET["idEst"], $_GET["idCur"], "", "");
+            $matricula -> consultar();
+            $curso = $matricula->getCurso();
+            $curso->consultar();
+            //$estudiante = new Estudiante($_GET["idEst"]); 
+            //$curso = $estudiante -> ConsultarCurso($_GET["idCur"]);
         }else{
             $curso = new Curso($_GET["idCur"]);
             $curso -> consultar();
@@ -21,19 +27,19 @@
 <div class="row justify-content-md-end">
     <div class="col col-lg-4">  
         <br/><br/><br/>
-        <label data-toggle='tooltip' onclick="abrir()" data-placement='top' title='Ver estadisticas del curso' style="cursor: pointer;">
+        <label data-toggle='tooltip' onclick="abrir()" data-placement='top' title='Ver materias de este curso' style="cursor: pointer;">
             <img class="foto" src="https://image.flaticon.com/icons/png/512/446/446813.png"  style="width: 240px "/>
         </label> 
     </div>
 
     <div class="col col-lg-8">
-        <h1><?php echo $curso->getNombre()?></h1>
+        <h1><?php echo $curso->getNombre();?></h1>
         <hr>
         <?php
             if(isset($_GET["idEst"])){       
-                echo '<small class="text-muted">Modalidad: '.$curso->getModalidad().'</small><br/>';
+                echo '<small class="text-muted">Modalidad: '.$matricula->getModalidad().'</small><br/>';
                 echo '<small class="text-muted">Director: '.$curso->getDirector().'</small><br/>';
-                echo '<small class="text-muted">Sede: '.$curso->getModalidad().'</small><br/>';
+                echo '<small class="text-muted">Sede: '.$matricula->getModalidad().'</small><br/>';
             }
         ?>
         <br/><p class="mb-0"><?php echo $curso->getDescripccion()?></p><br/>        
@@ -43,7 +49,7 @@
             </div>        
         </div><br/><hr>
         <?php
-            if($curso->getEstadoId()==0){
+            if($matricula->getEstadoId()==0){
                 echo '<div class="custom-control custom-switch">
                             <input type="checkbox" class="custom-control-input" id="estadoPago">
                             <div class="float-sm-right">
@@ -53,7 +59,7 @@
                             </div>
                             <label class="custom-control-label" id="estado" for="estadoPago" >Esperando Pago</label>
                         </div>';
-              }else if($curso->getEstadoId()==1){
+              }else if($matricula->getEstadoId()==1){
                 echo '<div class="custom-control custom-switch">
                             <input type="checkbox" checked class="custom-control-input" id="estadoPago">
                             <div class="float-sm-right">
@@ -77,7 +83,7 @@
 </script>
 
 <script type="text/javascript">
-     var estado=<?php echo $curso->getEstadoId()?>;
+     var estado=<?php echo $matricula->getEstadoId()?>;
      
      $('#estadoPago').on('change.bootstrapSwitch', function (e, state) {
         console.log(e.target.checked);

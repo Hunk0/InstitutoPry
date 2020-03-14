@@ -4,29 +4,22 @@
 include 'presentacion/mnuVisitante.php';
 $correo = $_POST["correo"];
 $clave = $_POST["clave"];
-/*
-$administrador = new Administrador("", "", "", $correo, $clave);
-if($administrador -> autenticar()){
-    $_SESSION['id'] = $administrador -> getId();    
-    header("Location: index.php?pid=" . base64_encode("presentacion/sesionAdministrador.php"));
-}*/
+
 $error=0;
 $administrador = new Administrador("", "", "", $correo, $clave);
-  $profesor = new Profesor("", "", "" ,$correo="", $clave="", "");
+  $profesor = new Profesor("", "", "" ,$correo, $clave, "");
   $estudiante = new Estudiante("", "", "" ,$correo, $clave, "", "", "", "");
     if($administrador -> autenticar()){
         $_SESSION['id'] = $administrador -> getId();
         $_SESSION['rol'] = "admin";
         $pid= base64_encode("presentacion/administrador/sesionAdministrador.php");
         header('Location: index.php?pid=' . $pid);
-    }
-    else if( $profesor -> autenticar()){    
+    }else if( $profesor -> autenticar()){    
         $_SESSION['id'] = $profesor -> getId();
         $_SESSION['rol'] = "profesor";
         $pid= base64_encode("presentacion/profesor/sesionProfesor.php");
         header('Location: index.php?pid=' . $pid);
-    }
-    else if($estudiante -> autenticar()){
+    }else if($estudiante -> autenticar()){
         $_SESSION['id'] = $estudiante -> getId();
         $_SESSION['rol'] = "estudiante";
         $pid= base64_encode("presentacion/estudiante/sesionEstudiante.php");

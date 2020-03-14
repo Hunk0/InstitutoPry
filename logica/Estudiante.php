@@ -57,7 +57,6 @@ class Estudiante extends Persona{
         $this -> telefono = $resultado[5];
         $this -> direccion = $resultado[6];
         $this -> foto = $resultado[7];
-        $this -> estado = $resultado[8];
 
         $this -> conexion -> cerrar();
     }
@@ -89,15 +88,14 @@ class Estudiante extends Persona{
         }
     }
 
-    function consultarCursos(){
+    function consultarMatricula(){
         $this -> conexion -> abrir();
         $this -> conexion -> ejecutar($this -> estudianteDAO -> consultarCursos());
         $registros = array();
 
         for($i=0; $i<$this->conexion->numFilas() ; $i++){
             $registro = $this->conexion->extraer();
-            $registros[$i] = new Curso($registro[0], "", "", "",  "", $registro[1], "", $registro[2]);
-            $registros[$i] -> consultar();
+            $registros[$i] = new Matricula($this->id, $registro[0], $registro[1], $registro[2]);
         }
 
         $this -> conexion -> cerrar();

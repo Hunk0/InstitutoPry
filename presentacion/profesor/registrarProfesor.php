@@ -61,7 +61,6 @@ if (isset($_POST["registrar"])) {
                     <input type="password" name="clave" class="form-control" placeholder="Clave(*)" required="required" >
                 </div>        
                 <button type="submit" name="registrar" class="btn btn-primary">Registrar</button>
-                <a class="btn btn-secondary" href="index.php?pid=<?php echo base64_encode("presentacion/profesor/consultarProfesor.php")?>" role="button">Atras</a>
             </form>
     </div>    
 </div>

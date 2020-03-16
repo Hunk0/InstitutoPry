@@ -16,6 +16,7 @@ require 'logica/Matricula.php';
 require 'logica/Modalidad.php';
 require 'logica/Variante.php';
 require 'logica/Materia.php';
+require 'logica/Sede.php';
 $pid = base64_decode($_GET["pid"]);
 include $pid;
 ?>

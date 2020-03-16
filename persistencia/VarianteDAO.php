@@ -31,6 +31,16 @@ class VarianteDAO{
                 WHERE idvariante =" . $this->id . ";"; 
     }
 
+    function InsertarSede($sedeid){
+        return "INSERT INTO sede_has_variante
+                (sede_idsede, 	variante_idvariante)
+                VALUES ('".$sedeid."', '".$this->id."')";
+    }
+
+
+    function ultimoId(){
+        return "SELECT MAX(idvariante) AS idvariante FROM variante";
+    }
 }
     
 

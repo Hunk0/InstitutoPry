@@ -71,6 +71,24 @@ class Variante{
         }
     }
 
+    function ultimoId(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> varianteDAO -> ultimoId());
+        $resultado = $this -> conexion -> extraer();
+        $this -> id = $resultado[0];
+        $this -> varianteDAO = new VarianteDAO($resultado[0]);
+        $this -> conexion -> cerrar();
+    }
+
+    function InsertarSede($sedeid){
+        //if($like!=""){
+            $this -> conexion -> abrir();
+            $this -> conexion -> ejecutar($this -> varianteDAO -> InsertarSede($sedeid));
+            //echo ($this -> pacienteDAO -> consultarTodosLike($like));
+            $this -> conexion -> cerrar();
+       //}
+    }
+
     function getId(){
         return $this -> id;
     }

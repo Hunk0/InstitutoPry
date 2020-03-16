@@ -24,4 +24,19 @@ if(isset($_GET["idVariante"])){
 
     echo "Precio: $".$variante->getCosto();
 }
+
+if(isset($_GET["sedes"])){
+    $sede = new Sede();
+    $sedes = $sede->consultarTodas();
+
+    echo '<br/>
+        <div class="form-group">
+            <label for="exampleFormControlSelect2">Sedes:</label>
+            <select name="sedes[]" required="required" multiple class="form-control" id="exampleFormControlSelect2">';
+    foreach($sedes as $s){
+        echo '<option value="'.$s->getId().'" >'.$s->getNombre().'</option>';
+    }            
+    echo   '</select>
+        </div>';
+}
 ?>

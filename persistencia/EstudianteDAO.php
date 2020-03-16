@@ -49,8 +49,8 @@ class EstudianteDAO{
                 FROM estudiante";
     }
 
-    function consultarCursos(){
-        return "SELECT curso_idcurso, modalidad_idmodalidad, estado
+    function consultarMatriculas(){
+        return "SELECT idmatricula, 	estudiante_idestudiante, 	variante_idvariante, 	estado 
                 FROM matricula
                 WHERE estudiante_idestudiante =".$this -> id;
     }

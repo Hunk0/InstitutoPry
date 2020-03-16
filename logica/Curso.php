@@ -97,6 +97,59 @@ class Curso{
         return $registros;
     }
 
+    function consultarVariantes(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> cursoDAO -> consultarVariantes());
+        $registros = array();
+
+        for($i=0; $i<$this->conexion->numFilas() ; $i++){
+            $registro = $this->conexion->extraer();
+            $registros[$i] = new Variante($registro[0]);            
+            $registros[$i] -> consultar();
+        }
+
+        $this -> conexion -> cerrar();
+        return $registros;
+    }
+
+    function consultarMaterias(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> cursoDAO -> consultarMaterias());
+        $registros = array();
+
+        for($i=0; $i<$this->conexion->numFilas() ; $i++){
+            $registro = $this->conexion->extraer();
+            $registros[$i] = new Materia($registro[0]);            
+            $registros[$i] -> consultar();
+        }
+
+        $this -> conexion -> cerrar();
+        return $registros;
+    }
+
+    function consultarDirector(){
+        $profesor = new Profesor($this -> director);
+        $profesor -> consultar();
+        return $profesor;
+    }
+
+    function Buscar($like){
+        //if($like!=""){
+            $this -> conexion -> abrir();
+            $this -> conexion -> ejecutar($this -> cursoDAO -> Buscar($like));
+            //echo ($this -> pacienteDAO -> consultarTodosLike($like));
+            $registros = array();
+            for($i=0; $i<$this->conexion->numFilas() ; $i++){
+                $registro = $this->conexion->extraer();
+                $registros[$i] = new Curso($registro[0]);
+                $registros[$i] -> consultar();
+            }
+            $this -> conexion -> cerrar();
+            return $registros;
+       //}
+        
+    }
+
     function getId(){
         return $this -> id;
     }

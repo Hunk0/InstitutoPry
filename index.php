@@ -10,6 +10,7 @@ require 'logica/Imagen.php';
 require 'logica/Matricula.php';
 require 'logica/Modalidad.php';
 require 'logica/Variante.php';
+require 'logica/Materia.php';
 ?>
 
 <head>

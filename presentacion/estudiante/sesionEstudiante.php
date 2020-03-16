@@ -1,6 +1,6 @@
 <?php
     include 'presentacion/estudiante/mnuEstudiante.php';
-    $matriculas = $estudiante->consultarMatricula();
+    $matriculas = $estudiante->consultarMatriculas();
 ?>
 <br/><br/><br/><br/>
 <div class="container">
@@ -19,7 +19,9 @@
     <div class="row row-cols-1 row-cols-md-3 ">
     <?php 
         foreach ($matriculas as $m){
-            $c = $m->getCurso();
+            $v = $m->getVariante();
+            $c = $v->consultarCurso();
+            
             if ($m->getEstadoId() == 1){
                 echo   '<div class="col mb-4 ">
                             <a  href="#" class="list-group-item-action">

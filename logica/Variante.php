@@ -6,6 +6,7 @@ require_once 'persistencia/Conexion.php';
 
 class Variante{
 
+    private $id;
     private $cursoid;
     private $modalidadid;
     private $costo;
@@ -13,20 +14,73 @@ class Variante{
     private $conexion;
     private $varianteDAO;
 
-    function Variante($cursoid="", $modalidadid="", $costo=""){
+    function Variante($id="", $cursoid="", $modalidadid="", $costo=""){
+        $this -> id = $id;
         $this -> cursoid = $cursoid;
         $this -> modalidadid = $modalidadid;
         $this -> costo = $costo;
 
         $this -> conexion = new Conexion();
-        $this -> varianteDAO = new VarianteDAO($cursoid, $modalidadid, $costo );
+        $this -> varianteDAO = new VarianteDAO($id, $cursoid, $modalidadid, $costo );
     }
 
     function registrar(){
         $this -> conexion -> abrir();
         $this -> conexion -> ejecutar($this -> varianteDAO -> registrar());
-        echo $this -> varianteDAO -> registrar();
         $this -> conexion -> cerrar();
+    }
+
+    function consultar(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> varianteDAO -> consultar());
+        $resultado = $this -> conexion -> extraer();
+
+        $this -> id = $resultado[0];
+        $this -> cursoid = $resultado[1];
+        $this -> modalidadid = $resultado[2];
+        $this -> costo = $resultado[3];
+
+        $this -> varianteDAO = new VarianteDAO($this -> id, $this -> cursoid, $this -> modalidadid, $this -> costo );
+
+        $this -> conexion -> cerrar();
+    }
+
+    function consultarCurso(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> varianteDAO -> getCurso());
+        if($this -> conexion -> numFilas() == 1){
+            $resultado = $this -> conexion -> extraer();
+            $this -> cursoid = $resultado[0];            
+            $curso = new Curso($resultado[0]);
+            $curso -> consultar();
+            $this -> conexion -> cerrar();
+            return $curso;
+        }else{
+            $this -> conexion -> cerrar();
+            return null;
+        }
+    }
+
+    function getModalidad(){
+        if($this -> modalidadid != null){
+            $modalidad = new Modalidad($this -> modalidadid);
+            $modalidad -> consultar();
+            return $modalidad;
+        }else{
+            return null;
+        }
+    }
+
+    function getId(){
+        return $this -> id;
+    }
+
+    function getCosto(){
+        return $this -> costo;
+    }
+
+    function getCurso(){
+        return $this -> cursoid;
     }
     
 }

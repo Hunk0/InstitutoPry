@@ -5,19 +5,19 @@ require_once 'persistencia/Conexion.php';
 
 class Matricula{
 
+    private $id;
     private $estudianteid;
-    private $cursoid;
-    private $modalidadid;
+    private $varianteid;
     private $estado;
     
-    function Matricula($estudianteid="", $cursoid="", $modalidadid="", $estado=""){
+    function Matricula($id="", $estudianteid="", $varianteid="", $estado=""){
+        $this -> id = $id;
         $this -> estudianteid = $estudianteid;
-        $this -> cursoid = $cursoid;
-        $this -> modalidadid = $modalidadid;
+        $this -> varianteid = $varianteid;
         $this -> estado = $estado;
 
         $this -> conexion = new Conexion();
-        $this -> matriculaDAO = new MatriculaDAO($estudianteid, $cursoid, $modalidadid, $estado);
+        $this -> matriculaDAO = new MatriculaDAO($id, $estudianteid, $varianteid, $estado);
     }
 
     function consultar(){
@@ -25,11 +25,11 @@ class Matricula{
         $this -> conexion -> ejecutar($this -> matriculaDAO -> consultar());
         $resultado = $this -> conexion -> extraer();
 
-        $this -> estudianteid = $resultado[0];
-        $this -> cursoid = $resultado[1];
-        $this -> modalidadid = $resultado[2];
+        $this -> id = $resultado[0];
+        $this -> estudianteid = $resultado[1];
+        $this -> varianteid = $resultado[2];
         $this -> estado = $resultado[3];
-        $this -> matriculaDAO = new MatriculaDAO($this -> estudianteid, $this -> cursoid, $this -> modalidadid, $this -> estado);
+        $this -> matriculaDAO = new MatriculaDAO($this -> id, $this -> estudianteid, $this -> varianteid, $this -> estado);
 
         $this -> conexion -> cerrar();
     }
@@ -40,22 +40,25 @@ class Matricula{
         $this -> conexion -> cerrar();
     }
 
-    function getCurso(){
+    function getVariante(){
         $this -> conexion -> abrir();
-        $this -> conexion -> ejecutar($this -> matriculaDAO -> getCurso());
+        $this -> conexion -> ejecutar($this -> matriculaDAO -> getVariante());
         if($this -> conexion -> numFilas() == 1){
             $resultado = $this -> conexion -> extraer();
-            $this -> id = $resultado[0];            
-            $curso = new Curso($resultado[0]);
-            $curso -> consultar();
+            $this -> varianteid = $resultado[0];            
+            $variante = new Variante($resultado[0]);
+            $variante -> consultar();
             $this -> conexion -> cerrar();
-            return $curso;
+            return $variante;
         }else{
             $this -> conexion -> cerrar();
             return null;
         }
     }
 
+    function getId(){
+        return $this -> id;
+    }
 
     function getEstadoId(){
         return $this -> estado; 
@@ -69,8 +72,8 @@ class Matricula{
         }
     }
 
-    function getModalidad(){
-        return $this -> modalidadid;
+    function getVarianteId(){
+        return $this -> varianteid;
     }
 }
 

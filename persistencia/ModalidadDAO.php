@@ -11,6 +11,12 @@ class ModalidadDAO{
         $this -> privilegio = $privilegio;
     }
 
+    function consultar(){
+        return "SELECT 	idmodalidad, nombre,	privilegio
+                FROM modalidad
+                WHERE idmodalidad =" . $this->id . ";";  
+    }
+
     function consultarTodos(){
         return "SELECT idmodalidad,	nombre,	privilegio
                 FROM modalidad";

@@ -43,7 +43,7 @@ $cursos = $curso->consultarCursos();
 							foreach ($cursos as $c) {
                                 echo "<tr>";
 								echo "<td>" . $c->getId() . "</td>";
-								echo "<td>" . $c->getNombre() . "</td>";
+								echo "<td><a href='index.php?pid=".base64_encode("presentacion/consultarMateria.php")."&idCurso=".$c->getId()."' >" . $c->getNombre() . "</a></td>";
 								echo "<td>" . $c->getFecha() . "</td>";
 								echo "<td>" . $c->getDirector() . "</td>";
 								echo "<td> </td>";//.

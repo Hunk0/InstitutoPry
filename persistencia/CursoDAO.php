@@ -45,6 +45,25 @@ class CursoDAO{
         return "SELECT MAX(idcurso) AS idcurso FROM curso";
     }
 
+    function Buscar($like){
+        return "SELECT idcurso
+                FROM curso
+                WHERE nombre LIKE '%".$like."%'
+                OR descripccion LIKE '%".$like."%'";
+    }
+
+    function consultarVariantes(){
+        return "SELECT idvariante
+                FROM variante
+                WHERE curso_idcurso = '".$this->id."'";
+    }
+
+    function consultarMaterias(){
+        return "SELECT idmateria
+                FROM materia 
+                WHERE curso_idcurso = '".$this->id."'";
+    }
+
 /*
     function consultarCurso(){
         return "SELECT curso.idcurso,  curso.nombre,  curso.descripccion,  curso.fechacierre, curso.director, curso_has_modalidad.valor 

@@ -1,34 +1,36 @@
 <?php
 
 class MatriculaDAO{
+
+    private $id;
     private $estudianteid;
-    private $cursoid;
-    private $modalidadid;
+    private $varianteid;    
     private $estado;
 
-    function MatriculaDAO($estudianteid="", $cursoid="", $modalidadid="", $estado=""){
+    function MatriculaDAO($id="", $estudianteid="", $varianteid="",  $estado=""){
+        $this -> id = $id;
         $this -> estudianteid = $estudianteid;
-        $this -> cursoid = $cursoid;
-        $this -> modalidadid = $modalidadid;
+        $this -> varianteid = $varianteid;
+        $this -> id = $id;
         $this -> estado = $estado;
     }
 
     function consultar(){
-        return "SELECT estudiante_idestudiante,  curso_idcurso,  modalidad_idmodalidad,  estado
+        return "SELECT idmatricula, 	estudiante_idestudiante, 	variante_idvariante, 	estado
                 FROM matricula
-                WHERE estudiante_idestudiante =". $this -> estudianteid ." AND curso_idcurso=".$this -> cursoid;
+                WHERE idmatricula =" . $this->id . ";";  
     }
 
     function actualizarEstado(){
         return "UPDATE matricula 
                 SET matricula.estado = '".$this->estado."' 
-                WHERE matricula.curso_idcurso = ".$this->cursoid." AND matricula.estudiante_idestudiante =" . $this->estudianteid . ";";                   
+                WHERE idmatricula =" . $this->id . ";";                   
     }
 
-    function getCurso(){
-        return "SELECT curso_idcurso
+    function getVariante(){
+        return "SELECT variante_idvariante
                 FROM matricula
-                WHERE curso_idcurso = '" . $this -> cursoid . "' AND modalidad_idmodalidad = '" . $this -> modalidadid . "'";
+                WHERE idmatricula =" . $this->id . ";";
     }
     
 }

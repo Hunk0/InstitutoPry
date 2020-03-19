@@ -61,6 +61,21 @@ class Variante{
         }
     }
 
+    function consultarMatriculas(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> varianteDAO -> consultarMatriculas());
+        $registros = array();
+
+        for($i=0; $i<$this->conexion->numFilas() ; $i++){
+            $registro = $this->conexion->extraer();
+            $registros[$i] = new Matricula($registro[0]);
+            $registros[$i] -> consultar();
+        }
+
+        $this -> conexion -> cerrar();
+        return $registros;
+    }
+
     function getModalidad(){
         if($this -> modalidadid != null){
             $modalidad = new Modalidad($this -> modalidadid);
@@ -87,6 +102,21 @@ class Variante{
             //echo ($this -> pacienteDAO -> consultarTodosLike($like));
             $this -> conexion -> cerrar();
        //}
+    }
+
+    function consultarSedes(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> varianteDAO -> consultarSedes());
+        $registros = array();
+
+        for($i=0; $i<$this->conexion->numFilas() ; $i++){
+            $registro = $this->conexion->extraer();
+            $registros[$i] = new Sede($registro[0]);
+            $registros[$i] -> consultar();
+        }
+
+        $this -> conexion -> cerrar();
+        return $registros;
     }
 
     function getId(){

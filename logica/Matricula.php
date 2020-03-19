@@ -34,6 +34,12 @@ class Matricula{
         $this -> conexion -> cerrar();
     }
 
+    function registrar(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> matriculaDAO -> registrar());
+        $this -> conexion -> cerrar();
+    }
+
     function actualizarEstado(){
         $this -> conexion -> abrir();
         $this -> conexion -> ejecutar($this -> matriculaDAO -> actualizarEstado());
@@ -56,8 +62,13 @@ class Matricula{
         }
     }
 
+    
     function getId(){
         return $this -> id;
+    }
+
+    function getEstudianteId(){
+        return $this -> estudianteid;
     }
 
     function getEstadoId(){

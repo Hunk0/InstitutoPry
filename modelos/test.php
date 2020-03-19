@@ -3,7 +3,7 @@
                         </button>
                         onclick="Next('modalidades', '#modalidad')"
 
-                        
+                        https://makitweb.com/upload-and-create-photo-gallery-with-photobox-in-php/
 
                         <form>
                                 <div class="form-group">

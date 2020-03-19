@@ -37,6 +37,17 @@ class VarianteDAO{
                 VALUES ('".$sedeid."', '".$this->id."')";
     }
 
+    function consultarSedes(){
+        return "SELECT sede_idsede
+                FROM sede_has_variante
+                WHERE variante_idvariante='".$this->id."'";
+    }
+
+    function consultarMatriculas(){
+        return "SELECT idmatricula
+                FROM matricula
+                WHERE variante_idvariante='".$this->id."'";
+    }
 
     function ultimoId(){
         return "SELECT MAX(idvariante) AS idvariante FROM variante";

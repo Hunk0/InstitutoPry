@@ -24,7 +24,7 @@ $cursos = $curso->consultarCursos();
 							if(isset($_GET["Success"])){
 								echo '<div class="align-items-center" style="height:100px; display: grid;">
 										<div id="alert" class="alert alert-success alert-dismissible fade show" role ="alert" >
-											Nueva materia añadida!
+											Nueva curso añadido!
 											<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 											<span aria-hidden="true">&times;</span>
 											</button>

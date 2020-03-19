@@ -45,6 +45,21 @@ class Materia{
         $this -> conexion -> cerrar();
     }
 
+    function consultarNotas(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> materiaDAO -> consultarNotas());
+        $registros = array();
+
+        for($i=0; $i<$this->conexion->numFilas() ; $i++){
+            $registro = $this->conexion->extraer();
+            $registros[$i] = new Nota($registro[0]);
+            $registros[$i] -> consultar();
+        }
+
+        $this -> conexion -> cerrar();
+        return $registros;
+    }
+
     function getId(){
         return $this -> id;
     }

@@ -13,6 +13,19 @@
 
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="#">Nosotros</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href='index.php?pid=<?php echo base64_encode("presentacion/buscarCurso.php")?>'>Cursos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Contacto</a>
+      </li>
+    </div> 
+
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
     </div> 
     <ul class="navbar-nav ml-auto"> 
         <li class="nav-item dropdown">

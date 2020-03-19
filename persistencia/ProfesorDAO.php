@@ -42,6 +42,11 @@ class ProfesorDAO{
                 from profesor";
     }
 
+    function consultarMaterias(){
+        return "SELECT idmateria
+                FROM materia 
+                WHERE profesor_idprofesor = '".$this->id."'";
+    }
 
     function existeCorreo(){
         return "SELECT administrador.idadministrador OR profesor.idprofesor OR estudiante.idestudiante

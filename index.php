@@ -12,6 +12,7 @@ require 'logica/Modalidad.php';
 require 'logica/Variante.php';
 require 'logica/Materia.php';
 require 'logica/Sede.php';
+require 'logica/Nota.php';
 ?>
 
 <head>
@@ -41,7 +42,8 @@ require 'logica/Sede.php';
             }, 2000);
         });
         */
-    </script>   
+    </script>  
+     
 </head>
 
 <body>

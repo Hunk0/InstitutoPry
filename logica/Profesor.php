@@ -68,6 +68,21 @@ class Profesor extends Persona{
         return $registros;
     }
 
+    function consultarMaterias(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> profesorDAO -> consultarMaterias());
+        $registros = array();
+
+        for($i=0; $i<$this->conexion->numFilas() ; $i++){
+            $registro = $this->conexion->extraer();
+            $registros[$i] = new Materia($registro[0]);            
+            $registros[$i] -> consultar();
+        }
+
+        $this -> conexion -> cerrar();
+        return $registros;
+    }
+
     function existeCorreo(){
         $this -> conexion -> abrir();
         $this -> conexion -> ejecutar($this -> profesorDAO -> existeCorreo());

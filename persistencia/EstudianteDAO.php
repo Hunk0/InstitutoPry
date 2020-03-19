@@ -55,6 +55,12 @@ class EstudianteDAO{
                 WHERE estudiante_idestudiante =".$this -> id;
     }
 
+    function consultarNotas($materiaid){
+        return "SELECT idnota 
+                FROM nota
+                WHERE estudiante_idestudiante ='".$this -> id."' AND materia_idmateria ='".$materiaid."'";
+    }
+
     function consultarCurso($cursoid){
         return "SELECT curso_idcurso, modalidad_idmodalidad, estado
                 FROM matricula

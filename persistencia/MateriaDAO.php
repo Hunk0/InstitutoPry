@@ -24,6 +24,12 @@ class MateriaDAO{
                 (nombre,	curso_idcurso,	profesor_idprofesor )
                 values ('" .  $this -> nombre . "', '" . $this -> cursoid . "', '" . $this -> profesorid  .  "')";
     }
+
+    function consultarNotas(){
+        return "SELECT idnota
+                FROM nota
+                WHERE materia_idmateria  =" . $this->id . ";";
+    }
 }
     
 

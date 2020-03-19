@@ -39,4 +39,80 @@ if(isset($_GET["sedes"])){
     echo   '</select>
         </div>';
 }
+
+if(isset($_GET["idMateria"])){
+      $materia = new Materia($_GET["idMateria"]);
+      $materia -> consultar();
+
+      $curso = new Curso($materia->getCursoId());
+      $curso -> consultar();
+
+      $variantes = $curso -> consultarVariantes();
+
+      $matriculas = array();
+      foreach($variantes as $v){
+        $matriculas += $v->consultarMatriculas();
+      }
+
+      $estudiantes = array();
+      for($i=0; $i<count($matriculas) ; $i++){
+          $nota = new Nota("", $materia->getId(), $matriculas[$i]->getEstudianteId(), 0);
+          $nota -> registrar();
+          $estudiantes[$i] = new Estudiante($matriculas[$i]->getEstudianteId());
+          $estudiantes[$i] -> consultar();
+      }
+
+      echo '<table class="table table-bordered table-hover">';
+      echo '<thead>';
+      echo  '<tr>';
+      echo      '<th>#</th>';
+      echo      '<th>Nombre</th>';
+                if(count($estudiantes)>0){
+                  $notas = $estudiantes[0]->consultarNotas($materia->getId());
+                }                
+                for($i=0;$i<count($notas);$i++){
+                  echo '<th> Nota '.($i+1).'</th>';
+                }
+      echo      '<th>Nota promedio</th>';          
+      echo      '</tr>';
+      echo  '</thead>';          
+      echo  '<tbody>';
+      echo   '<tr>';
+                foreach ($estudiantes as $e){
+                  echo '<tr>';
+                  echo '<th scope="row">'.$e->getId().'</th>';
+                  echo '<th>'.$e->getNombres().' '.$e->getApellidos().'</th>';
+                  $notas = $e->consultarNotas($materia->getId());
+                  $i=0;
+                  foreach($notas as $n){
+                    $i+=$n->getNota();
+                    echo '<td class="text-center"> <span class="text">'.$n->getNota().'</span><a href="#" id="'.$n->getId().'" class="fas fa-pencil-alt edit" style="display: none;"></span></td>';
+                    //echo '<td>'.$n->getNota().'</td>';
+                  }
+                  echo '<td id="NP'.$e->getId().'" class="text-center">'. ((count($notas)>0)?($i/(count($notas))):"N/A") .'</td>';
+                  echo '</tr>';
+                }
+      echo   '</tr>';
+      echo  '</tbody>';
+      echo '</table>';
+}
+
+if(isset($_GET["idNota"])){
+    $nota = new Nota($_GET["idNota"], "", "", $_GET["valor"]);
+    $nota -> actualizar();
+    $nota -> consultar();
+
+    $estudiante = new Estudiante($nota->getEstudianteId());
+    $estudiante -> consultar();
+
+    $materia = new Materia($nota->getMateriaId());
+    $materia -> consultar();
+
+    $notas = $estudiante->consultarNotas($materia->getId());
+    $i=0;
+    foreach($notas as $n){
+        $i+=$n->getNota();
+    }
+    echo $i/(count($notas));
+}
 ?>

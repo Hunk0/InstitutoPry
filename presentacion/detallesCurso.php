@@ -17,7 +17,6 @@ if(isset($_GET["idCur"])){
     $variantes = $curso->consultarVariantes();
     $materias = $curso -> consultarMaterias();
 }
-
 ?>
 <br/><br/><br/><br/>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -201,25 +200,37 @@ img {
                   ?>
                 </ul>
             </div>
-            
-            <div class="col-md-5">
-                <label for="slcModalidad">Modalidades:</label>
-                <select class="custom-select" id="slcModalidad" required>
-                    <?php foreach($variantes as $v){
-                      $modalidad = $v->getModalidad();
-                      echo "<option value='".$v->getId()."'>".$modalidad->getNombre()."</option>";
-                    } 
-                    ?>
-                </select>
-                <div class="invalid-tooltip">
-                    Please select a valid state.
-                </div>
-            </div>
 
-            <div class="container text-right">
-                <br/><h2 id="Valor">Precio: $<?php echo $variantes[0]->getCosto()?></h2>
-                <a href="#" class="btn btn-outline-success" role="button" aria-pressed="true">Inscribirse</a>
-            </div>            
+            <form action=<?php echo "index.php?pid=" . base64_encode("presentacion/estudiante/inscripccion.php") ?> method="post">
+              <div class="col-md-5">
+                  <div class="form-group">
+                    <label for="slcModalidad">Modalidades:</label>
+                    <select class="custom-select" name="variante" id="slcModalidad" required>
+                        <?php foreach($variantes as $v){
+                          $modalidad = $v->getModalidad();
+                          echo "<option value='".$v->getId()."'>".$modalidad->getNombre()."</option>";
+                        } 
+                        ?>
+                    </select>
+                    <div class="invalid-tooltip">
+                        Please select a valid state.
+                    </div>
+                  </div>
+              </div>
+
+              <div class="container text-right">
+                  <br/><h2 id="Valor">Precio: $<?php echo $variantes[0]->getCosto()?></h2>
+                  <?php
+                    if(isset($_SESSION["rol"])){
+                      if($_SESSION["rol"]=="estudiante"){
+                        echo '<button type="submit" name="registrar" class="btn btn-success" >Inscribirse</button>';
+                      }
+                    }else{
+                      echo '<a type="button" href="#" class="btn btn-outline-success" role="button" aria-pressed="true">Inscribirse</a>';
+                    }
+                  ?>                  
+              </div> 
+            </form>           
       </div>
   </div>
 </div>

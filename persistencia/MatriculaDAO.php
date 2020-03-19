@@ -11,7 +11,6 @@ class MatriculaDAO{
         $this -> id = $id;
         $this -> estudianteid = $estudianteid;
         $this -> varianteid = $varianteid;
-        $this -> id = $id;
         $this -> estado = $estado;
     }
 
@@ -27,11 +26,18 @@ class MatriculaDAO{
                 WHERE idmatricula =" . $this->id . ";";                   
     }
 
+    function registrar(){
+        return "INSERT INTO matricula
+                (estudiante_idestudiante, 	variante_idvariante, 	estado )
+                values ('" . $this->estudianteid . "', '" . $this->varianteid . "', '" . $this->estado . "')";
+    }
+
     function getVariante(){
         return "SELECT variante_idvariante
                 FROM matricula
                 WHERE idmatricula =" . $this->id . ";";
     }
+
     
 }
     

@@ -102,6 +102,21 @@ class Estudiante extends Persona{
         return $registros;
     }
 
+    function consultarNotas($materiaid){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> estudianteDAO -> consultarNotas($materiaid));
+        $registros = array();
+
+        for($i=0; $i<$this->conexion->numFilas() ; $i++){
+            $registro = $this->conexion->extraer();
+            $registros[$i] = new Nota($registro[0]);
+            $registros[$i] -> consultar();
+        }
+
+        $this -> conexion -> cerrar();
+        return $registros;
+    }
+
     function consultarCurso($cursoid){
         $this -> conexion -> abrir();
         $this -> conexion -> ejecutar($this -> estudianteDAO -> consultarCurso($cursoid));

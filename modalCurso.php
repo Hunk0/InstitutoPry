@@ -11,6 +11,7 @@
    require_once 'logica/Variante.php';
    require_once 'logica/Materia.php';
    require_once 'logica/Sede.php';
+   require_once 'logica/Nota.php';
 
     if(isset($_GET["idMatr"])){
         $matricula = new Matricula($_GET["idMatr"]);

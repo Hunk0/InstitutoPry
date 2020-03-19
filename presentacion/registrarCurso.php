@@ -7,6 +7,9 @@ $modalidades = $modalidad->consultarTodos();
 $profesor = new Profesor();
 $profesores = $profesor->consultarTodos();
 
+$nombre = "";
+$descripccion = "";
+$fechacierre = "";
 $error="";
 
 if (isset($_POST["registrar"])) { 
@@ -23,11 +26,7 @@ if (isset($_POST["registrar"])) {
         if(isset($_POST["modalidad".$m->getId()])){
             if($_POST["modalidad".$m->getId()]){
                 $i++;
-                //echo $_POST["costo".$m->getId()];
                 $costo = $_POST["costo".$m->getId()];
-                //$variante = new Variante("", $id, $m->getId(), $costo);
-                //$variante -> registrar();
-                //echo $_POST["modalidad".$m->getId()]." / ".$costo."<br/>";
             }
         }        
     }
@@ -75,6 +74,18 @@ if (isset($_POST["registrar"])) {
 <div class="container d-flex justify-content-center">    
     <div  style="width: 25rem;"> 
         <hr><br/>
+        <?php
+            if($error!=""){
+                echo '
+                            <div id="alert" class="alert alert-danger alert-dismissible fade show" role ="alert" >
+                                '.$error.'
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                      <br/>';
+            }
+        ?>
         <form class="needs-validation" novalidate action=<?php echo "index.php?pid=" . base64_encode("presentacion/registrarCurso.php") ?> method="post">
             
             <div class="accordion" id="registro">
@@ -89,15 +100,15 @@ if (isset($_POST["registrar"])) {
                             
                                 <div class="form-group">
                                     <label for="desc">Nombre:</label>
-                                    <input type="text" name="nombre" class="form-control" required="required">
+                                    <input type="text" name="nombre" class="form-control" required="required" value="<?php echo $nombre ?>">
                                 </div>
                                 <div class="form-group">
                                     <label for="desc">Descripccion:</label>
-                                    <textarea type="text" name="descripccion" class="form-control" id="desc" required="required" rows="3"></textarea>
+                                    <textarea type="text" name="descripccion" class="form-control" id="desc" required="required" rows="3" value="<?php echo $descripccion ?>" ></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="date-input" >Fecha de cierre:</label>
-                                    <input class="form-control" name="fecha" type="date" id="date-input" required="required">
+                                    <input class="form-control" name="fecha" type="date" id="date-input" required="required" value="<?php echo $fechacierre ?>">
                                 </div>
                                 <div class="form-group">
                                     <label for="slcDirector">Director de curso:</label>

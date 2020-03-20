@@ -60,6 +60,21 @@ class Materia{
         return $registros;
     }
 
+    function consultarPublicaciones(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> materiaDAO -> consultarPublicaciones());
+        $registros = array();
+
+        for($i=0; $i<$this->conexion->numFilas() ; $i++){
+            $registro = $this->conexion->extraer();
+            $registros[$i] = new Publicacion($registro[0]);
+            $registros[$i] -> consultar();
+        }
+
+        $this -> conexion -> cerrar();
+        return $registros;
+    }
+
     function getId(){
         return $this -> id;
     }

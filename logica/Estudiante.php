@@ -133,6 +133,21 @@ class Estudiante extends Persona{
         }   
     }
 
+    function consultarVariantes(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> estudianteDAO -> consultarVariantes());
+        $registros = array();
+
+        for($i=0; $i<$this->conexion->numFilas() ; $i++){
+            $registro = $this->conexion->extraer();
+            $registros[$i] = new Variante($registro[0]);
+            $registros[$i] -> consultar();
+        }
+
+        $this -> conexion -> cerrar();
+        return $registros;
+    }
+
 
     function getId(){
         return $this -> id;

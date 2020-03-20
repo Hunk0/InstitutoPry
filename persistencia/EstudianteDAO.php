@@ -55,6 +55,13 @@ class EstudianteDAO{
                 WHERE estudiante_idestudiante =".$this -> id;
     }
 
+    function consultarVariantes(){
+        return "SELECT variante.idvariante
+                FROM variante
+                INNER JOIN matricula ON matricula.variante_idvariante = variante.idvariante
+                WHERE matricula.estudiante_idestudiante =".$this -> id;
+    }
+
     function consultarNotas($materiaid){
         return "SELECT idnota 
                 FROM nota

@@ -13,6 +13,8 @@ require 'logica/Variante.php';
 require 'logica/Materia.php';
 require 'logica/Sede.php';
 require 'logica/Nota.php';
+require 'logica/Publicacion.php';
+require 'logica/Entrega.php';
 ?>
 
 <head>
@@ -22,11 +24,14 @@ require 'logica/Nota.php';
     <link rel="stylesheet"
         href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
 
+    
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script
-        src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartkick/2.3.0/chartkick.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartkick/2.3.0/chartkick.min.js"></script>       
+    <script src="https://www.gstatic.com/charts/loader.js"></script> 
         
     <script type="text/javascript">
     $(function () {
@@ -42,8 +47,7 @@ require 'logica/Nota.php';
             }, 2000);
         });
         */
-    </script>  
-     
+    </script>      
 </head>
 
 <body>

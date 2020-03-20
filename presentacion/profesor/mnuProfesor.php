@@ -22,10 +22,8 @@
           Mis Materias
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Lista de estudiantes</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href='index.php?pid=<?php echo base64_encode("presentacion/profesor/consultarMaterias.php")?>'>Notas</a>
-          <a class="dropdown-item" href="#">Plataforma</a>
+          <a class="dropdown-item" href='index.php?pid=<?php echo base64_encode("presentacion/profesor/consultarMaterias.php").'&Notas'?>'>Notas</a>
+          <a class="dropdown-item" href='index.php?pid=<?php echo base64_encode("presentacion/profesor/consultarMaterias.php").'&Plataforma'?>'>Plataforma</a>
         </div>
       </li>
     </div> 

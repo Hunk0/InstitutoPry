@@ -68,7 +68,7 @@
     <div id="tabla" class="table-responsive">
         <table class="table table-bordered table-hover">
           <thead>
-            <tr>
+            <tr class="text-center">
               <th>#</th>
               <th>Nombre</th>
               <?php

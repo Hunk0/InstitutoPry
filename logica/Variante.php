@@ -118,17 +118,22 @@ class Variante{
         $this -> conexion -> cerrar();
         return $registros;
     }
+    
 
     function getId(){
         return $this -> id;
     }
 
-    function getCosto(){
-        return $this -> costo;
-    }
-
     function getCurso(){
         return $this -> cursoid;
+    }    
+
+    function getModalidadId(){
+        return $this -> modalidadid;
+    }
+
+    function getCosto(){
+        return $this -> costo;
     }
     
 }

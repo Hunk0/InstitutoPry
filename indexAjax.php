@@ -18,6 +18,8 @@ require 'logica/Variante.php';
 require 'logica/Materia.php';
 require 'logica/Sede.php';
 require 'logica/Nota.php';
+require 'logica/Publicacion.php';
+require 'logica/Entrega.php';
 $pid = base64_decode($_GET["pid"]);
 include $pid;
 ?>

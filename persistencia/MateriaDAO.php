@@ -30,6 +30,12 @@ class MateriaDAO{
                 FROM nota
                 WHERE materia_idmateria  =" . $this->id . ";";
     }
+
+    function consultarPublicaciones(){
+        return "SELECT idpublicacion 
+                FROM publicacion
+                WHERE materia_idmateria  =" . $this->id . ";";
+    }
 }
     
 

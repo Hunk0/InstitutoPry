@@ -5,6 +5,15 @@ $profesor = new Profesor($_SESSION['id']);
 $profesor->consultar();
 
 $materias = $profesor -> consultarMaterias();
+
+//$redireccion = (isset($_GET["Notas"]))?:"";
+if(isset($_GET["Notas"])){
+	$redireccion = "presentacion/profesor/gestionarNotas.php";
+}else if(isset($_GET["Plataforma"])){
+	$redireccion = "presentacion/consultarPublicaciones.php";
+}else{
+	$redireccion = "presentacion/profesor/sesionProfesor.php";
+}
 ?>
 <br/><br/><br/><br/>
 <div class="container">
@@ -52,7 +61,7 @@ $materias = $profesor -> consultarMaterias();
 						<?php
 							foreach ($materias as $m) {
                                 echo "<tr>";
-                                echo "<td><a href='index.php?pid=".base64_encode("presentacion/profesor/gestionarNotas.php")."&idMateria=".$m->getId()."' >" .  $m->getNombre() . "</a></td>";
+                                echo "<td><a href='index.php?pid=".base64_encode($redireccion)."&idMateria=".$m->getId()."' >" .  $m->getNombre() . "</a></td>";
 								echo "<td> </td>";
 								echo "<td> </td>";//servicios
 								echo "</tr>";

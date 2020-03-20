@@ -2,9 +2,10 @@
                             Datos de curso
                         </button>
                         onclick="Next('modalidades', '#modalidad')"
-
+                        https://www.youtube.com/channel/UCHVdeEiqkAsbwnmQi41HhQw
+                        https://plugins.krajee.com/file-count-validation-demo
                         https://makitweb.com/upload-and-create-photo-gallery-with-photobox-in-php/
-
+                        http://adnan-tech.com/tutorial/google-maps-in-php-without-api-key
                         <form>
                                 <div class="form-group">
                                     <label for="desc">Nombre:</label>

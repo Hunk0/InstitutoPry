@@ -104,7 +104,25 @@ class CursoDAO{
                 FROM curso
                 ORDER BY fechacierre";
     }
-    
+
+    function consultarPorModalidad(){
+        return "SELECT variante.idvariante
+                FROM variante
+                INNER JOIN modalidad
+                ON variante.modalidad_idmodalidad = modalidad.idmodalidad
+                WHERE variante.curso_idcurso = (SELECT curso.idcurso
+                                                FROM curso
+                                                WHERE idcurso = '" . $this -> id . "') AND modalidad.privilegio > 0";
+    }
+
+    function consultarMatriculas(){
+        return "SELECT matricula.idmatricula
+                FROM matricula
+                INNER JOIN variante
+                ON variante.idvariante = matricula.variante_idvariante
+                WHERE variante.curso_idcurso = '" . $this -> id . "'";
+    }
+
 
 }
 

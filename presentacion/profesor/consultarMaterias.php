@@ -14,6 +14,20 @@ if(isset($_GET["Notas"])){
 }else{
 	$redireccion = "presentacion/profesor/sesionProfesor.php";
 }
+$analisis[] = array();
+foreach ($materias as $m) {
+	$curso = new Curso($m->getCursoId());
+	$curso -> consultar();
+
+	$variantes = $curso->consultarVariantes();
+	$cantidad = 0;
+	foreach($variantes as $v){
+		$matriculas = $v -> consultarMatriculas();
+		$cantidad += count($matriculas);
+	}
+	$analisis+= array($m->getNombre() => $cantidad);
+}
+
 ?>
 <br/><br/><br/><br/>
 <div class="container">
@@ -39,11 +53,10 @@ if(isset($_GET["Notas"])){
 	</div>
 	<hr><br/>	
     <div class="row">
-        <div class="col-md-auto">
-			<div class="row h-100">
-			<div id="col" class="col-md-12 my-auto">
-				<img class="foto" src="https://www.matematica.pt/en/images/resumos/bar-graph.png"  style="height : 250px "/>
-			</div>
+        <div class="col-7 mx-auto" >			
+			<div class="row h-100 " style="max-height: 450px">			
+			<div id="analisis" class="w-100"></div>
+			<script>new Chartkick.ColumnChart("analisis", <?php unset($analisis[0]); echo json_encode($analisis); ?>)</script>
 			</div>
 		</div>
 		<div class="col">
@@ -60,13 +73,21 @@ if(isset($_GET["Notas"])){
 						<tbody>
 						<?php
 							foreach ($materias as $m) {
-                                echo "<tr>";
+								$curso = new Curso($m->getCursoId());
+								$curso -> consultar();
+							
+								$variantes = $curso->consultarVariantes();
+								$cantidad = 0;
+								foreach($variantes as $v){
+									$matriculas = $v -> consultarMatriculas();
+									$cantidad += count($matriculas);
+								}
+								echo "<tr>";
                                 echo "<td><a href='index.php?pid=".base64_encode($redireccion)."&idMateria=".$m->getId()."' >" .  $m->getNombre() . "</a></td>";
-								echo "<td> </td>";
+								echo "<td>".$cantidad."</td>";
 								echo "<td> </td>";//servicios
 								echo "</tr>";
-							
-							}							
+							}						
 						?>
 						</tbody>
 					</table>					

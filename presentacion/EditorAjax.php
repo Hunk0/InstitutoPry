@@ -49,11 +49,7 @@ if(isset($_GET["idMateria"])){
 
       $variantes = $curso -> consultarVariantes();
 
-      $matriculas = array();
-      foreach($variantes as $v){
-        $matriculas += $v->consultarMatriculas();
-      }
-
+      $matriculas = $curso->consultarMatriculas();
       $estudiantes = array();
       for($i=0; $i<count($matriculas) ; $i++){
           $nota = new Nota("", $materia->getId(), $matriculas[$i]->getEstudianteId(), 0);

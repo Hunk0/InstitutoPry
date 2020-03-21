@@ -101,10 +101,10 @@
                     <textarea type="text" name="descripccion" class="form-control" id="desc" required="required" rows="3" ></textarea>
                 </div>
 
-                <div class="custom-file">
+                <div class="form-group custom-file">
                   <label for="desc">Material:</label>
                   <input type="file" name="material" class="custom-file-input" id="customFileLang" lang="es">
-                  <label class="custom-file-label" for="customFileLang">Seleccionar Archivo</label>
+                  <label class="custom-file-label" for="customFileLang" data-browse="Elegir">Seleccionar Archivo</label>
                 </div>
 
                 <div class="form-group form-check">

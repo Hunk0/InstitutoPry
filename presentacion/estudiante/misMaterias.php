@@ -73,7 +73,7 @@ if(isset($_GET["idCurso"])){
 						<span class="align-middle">Modalidad: <?php echo $modalidad->getNombre()?></span>
 						</div>
 						<div class="col-md-auto">
-							<span class="align-middle"><button type="button" class="btn btn-outline-info">Generar Certificado de estudio</button></span>							
+							<span class="align-middle"><a href="index.php?pid=<?php echo base64_encode("presentacion/estudiante/certificadoPdf.php")?>&idVariante=<?php echo $variante->getId()?>" type="button" class="btn btn-outline-info">Generar Certificado de estudio</a></span>							
 						</div>
 					</div>
 				</div>

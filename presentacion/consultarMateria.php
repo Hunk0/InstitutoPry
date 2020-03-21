@@ -8,7 +8,23 @@ if(isset($_GET["idCurso"])){
     $curso = new Curso($_GET["idCurso"]);
 	$curso -> consultar();
 	$variantes = $curso ->consultarVariantes(); 
-    $materias = $curso -> consultarMaterias();
+	$materias = $curso -> consultarMaterias();
+
+	$arr = array();	
+	for($i=0; $i<sizeof($variantes) ; $i++){
+		$m = $variantes[$i]->getModalidad();
+		$arr[$i] = $m->getNombre();
+	}
+
+	$r = array();
+	for($i=0; $i<sizeof($variantes) ; $i++){
+		$m = $variantes[$i]->getModalidad();
+		if($arr[$i]==$m->getNombre()){
+			$matriculas = $variantes[$i] -> consultarMatriculas();
+			$r[$i] = array($m->getNombre() , count($matriculas));
+		}
+	}
+	//echo json_encode($r);
 }else{
     header('Location: index.php');
 }
@@ -35,11 +51,10 @@ if(isset($_GET["idCurso"])){
 		</div>
 	</div>
 	<div class="row ">
-		<div class="col-md-auto">
-			<div class="row h-100">
-			<div id="col" class="col-md-12 my-auto">
-				<img class="foto" src="https://www.matematica.pt/en/images/resumos/bar-graph.png"  style="height : 250px "/>
-			</div>
+		<div class="col-5 mx-auto" >			
+			<div class="row h-100 " style="max-height: 450px">			
+			<div id="analisis" class="w-100"></div>
+			<script>new Chartkick.PieChart("analisis", <?php echo json_encode($r) ?>)</script>
 			</div>
 		</div>
 		<div class="col">

@@ -82,7 +82,7 @@
                 <p class="card-text"><?php echo $publicacion->getDescripccion()?></p>
                 <?php
                     if($publicacion->getArchivo()!=""){
-                        echo '<a href="#" class="btn btn-primary">Abrir documento anexo</a>';
+                        echo '<a href="archivos/'.$publicacion->getArchivo().'" class="btn btn-primary">Abrir documento anexo</a>';
                     }
                 ?>                
             </div>
@@ -116,7 +116,7 @@
                             <div class="custom-file">
                                 <label for="desc">Material:</label>
                                 <input type="file" name="material" required="true" class="custom-file-input" id="customFileLang" lang="es">
-                                <label class="custom-file-label" for="customFileLang">Seleccionar Archivo</label>
+                                <label class="custom-file-label" for="customFileLang" data-browse="Elegir">Seleccionar Archivo</label>
                             </div>
                             </div>
                             <div class="form-group text-center">
@@ -157,9 +157,35 @@
                             echo '<td><a href="archivos/'.$e->getArchivo().'">Ver Archivo</a></td>';
                             echo '</tr>';
                         }
+                        $materia = new Materia($publicacion->getMateriaId());
+                        $materia -> consultar();
+
+                        $curso = new Curso($materia->getCursoId());
+                        $curso -> consultar();
+
+                        $variantes = $curso->consultarVariantes();
+                        $cantidad = 0;
+                        foreach($variantes as $v){
+                            $modalidad = new Modalidad($v->getModalidadId());
+                            $modalidad -> consultar();
+                            if($modalidad->getPrivilegio()>0){
+                                $matriculas = $v -> consultarMatriculas();
+                                $cantidad += count($matriculas);
+                            } 
+                        }
                     ?>
                 </tbody>
             </table>
+            </div>
+        </div>
+        <br/>
+        <div class="card">
+            <div class="card card-body">
+                <h1>Analisis de entregas</h1>
+                <div id="analisis">
+
+                </div>
+                <script>new Chartkick.PieChart("analisis", [["Recibidas", <?php echo count($entregas)?>], ["Faltantes", <?php echo ($cantidad-count($entregas))?>]], {donut: true})</script>
             </div>
         </div>
       <?php } ?>

@@ -7,14 +7,14 @@
 
       $curso = new Curso($materia->getCursoId());
       $curso -> consultar();
-
+      /*
       $variantes = $curso -> consultarVariantes();
-
+      
       $matriculas = array();
       foreach($variantes as $v){
         $matriculas += $v->consultarMatriculas();
-      }
-
+      }*/
+      $matriculas = $curso->consultarMatriculas();
       $estudiantes = array();
       for($i=0; $i<count($matriculas) ; $i++){
           $estudiantes[$i] = new Estudiante($matriculas[$i]->getEstudianteId());
@@ -60,7 +60,7 @@
           <button type="button" class="btn btn-outline-primary" id="nuevaNota" >Agregar Nota</button>
         </div>
         <div class="col-md-auto">
-          <button type="button" class="btn btn-outline-info">Generar Pdf</button>
+          <a type="button" href="index.php?pid=<?php echo base64_encode("presentacion/profesor/asistenciaPdf.php")?>&idMateria=<?php echo $_GET["idMateria"]?>" class="btn btn-outline-info">Generar Pdf</a>
         </div>
       </div>
     </div>			

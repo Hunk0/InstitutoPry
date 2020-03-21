@@ -97,6 +97,21 @@ class Curso{
         return $registros;
     }
 
+    function consultarMatriculas(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> cursoDAO -> consultarMatriculas());
+        $registros = array();
+
+        for($i=0; $i<$this->conexion->numFilas() ; $i++){
+            $registro = $this->conexion->extraer();
+            $registros[$i] = new Matricula($registro[0]);            
+            $registros[$i] -> consultar();
+        }
+
+        $this -> conexion -> cerrar();
+        return $registros;
+    }
+
     function consultarVariantes(){
         $this -> conexion -> abrir();
         $this -> conexion -> ejecutar($this -> cursoDAO -> consultarVariantes());

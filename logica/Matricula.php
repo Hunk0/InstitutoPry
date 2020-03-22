@@ -40,6 +40,12 @@ class Matricula{
         $this -> conexion -> cerrar();
     }
 
+    function eliminar(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> matriculaDAO -> eliminar());
+        $this -> conexion -> cerrar();
+    }
+
     function actualizarEstado(){
         $this -> conexion -> abrir();
         $this -> conexion -> ejecutar($this -> matriculaDAO -> actualizarEstado());

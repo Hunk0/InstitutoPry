@@ -123,6 +123,12 @@ class CursoDAO{
                 WHERE variante.curso_idcurso = '" . $this -> id . "'";
     }
 
+    function consultarGaleria(){
+        return "SELECT imagen.idimagen
+                FROM imagen
+                WHERE imagen.curso_idcurso='" . $this -> id . "'";
+    }
+
 
 }
 

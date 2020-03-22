@@ -2,6 +2,8 @@
                             Datos de curso
                         </button>
                         onclick="Next('modalidades', '#modalidad')"
+                        https://github.com/ankane/chartkick.js
+                        https://ankane.github.io/chartkick.js/examples/
                         https://www.youtube.com/channel/UCHVdeEiqkAsbwnmQi41HhQw
                         https://plugins.krajee.com/file-count-validation-demo
                         https://makitweb.com/upload-and-create-photo-gallery-with-photobox-in-php/

@@ -6,6 +6,9 @@ if(isset($_SESSION['id']) && isset($_SESSION['rol'])){
   if($_SESSION['rol']=="estudiante"){
     include 'presentacion/estudiante/mnuEstudiante.php';
   }
+  if($_SESSION['rol']=="profesor"){
+    include 'presentacion/profesor/mnuProfesor.php';
+  }
 }else{
   include 'presentacion/mnuVisitante.php';
 }
@@ -119,73 +122,43 @@ img {
 </style>
 
 
-<div class="container">
+<div class="container" >
   <div class="row">      
       <div class="col">
         <?php /*
         <div class="row h-100"> 
 			  <div id="col" class="col-md-12 my-auto"> 
         */?>
-        <div class="mySlides">
-                <div class="numbertext">1 / 6</div>
-                <img src="https://www.stoodnt.com/blog/wp-content/uploads/2019/12/study_music.jpg" style="width:100%">
-            </div>
+        
+            <?php
+              $galeria=$curso->consultarGaleria();
+              for($i=0; $i<count($galeria); $i++){
+                //style width:100% => height: 425px;
+                echo '<div class="mySlides text-center" >
+                        <div class="numbertext">'.($i+1).' / '.count($galeria).'</div>
+                        <img src="img/'.$galeria[$i]->getNombre().'" style="height: 425px;">
+                      </div>';
+              }
+            ?>
 
-            <div class="mySlides">
-                <div class="numbertext">2 / 6</div>
-                <img src="https://www.stoodnt.com/blog/wp-content/uploads/2019/12/study_music.jpg" style="width:100%">
+          
+            <div class="row" style="display: flex;
+    flex-wrap: wrap; /* Optional. only if you want the items to wrap */
+    justify-content: center; /* For horizontal alignment */
+    align-items: center; /* For vertical alignment */">
+                <?php
+                  $galeria=$curso->consultarGaleria();
+                  for($i=0; $i<count($galeria); $i++){
+                    //style="width:100%"
+                    echo '<div class="column">
+                            <img class="demo cursor" src="img/'.$galeria[$i]->getNombre().'" style="width:100%" onclick="currentSlide('.($i+1).')">
+                          </div>';
+                  }
+                ?>
             </div>
-
-            <div class="mySlides">
-                <div class="numbertext">3 / 6</div>
-                <img src="https://www.stoodnt.com/blog/wp-content/uploads/2019/12/study_music.jpg" style="width:100%">
-            </div>
-                
-            <div class="mySlides">
-                <div class="numbertext">4 / 6</div>
-                <img src="https://www.stoodnt.com/blog/wp-content/uploads/2019/12/study_music.jpg" style="width:100%">
-            </div>
-
-            <div class="mySlides">
-                <div class="numbertext">5 / 6</div>
-                <img src="https://www.stoodnt.com/blog/wp-content/uploads/2019/12/study_music.jpg" style="width:100%">
-            </div>
-                
-            <div class="mySlides">
-                <div class="numbertext">6 / 6</div>
-                <img src="https://www.stoodnt.com/blog/wp-content/uploads/2019/12/study_music.jpg" style="width:100%">
-            </div>
-
-            <div class="caption-container">
-                <p id="caption"></p>
-            </div>
-
-            <div class="row" style="margin-right: 0px; margin-left: 0px;">
-                <div class="column">
-                <img class="demo cursor" src="https://www.stoodnt.com/blog/wp-content/uploads/2019/12/study_music.jpg" style="width:100%" onclick="currentSlide(1)" alt="The Woods">
-                </div>
-                <div class="column">
-                <img class="demo cursor" src="https://www.stoodnt.com/blog/wp-content/uploads/2019/12/study_music.jpg" style="width:100%" onclick="currentSlide(2)" alt="Cinque Terre">
-                </div>
-                <div class="column">
-                <img class="demo cursor" src="https://www.stoodnt.com/blog/wp-content/uploads/2019/12/study_music.jpg" style="width:100%" onclick="currentSlide(3)" alt="Mountains and fjords">
-                </div>
-                <div class="column">
-                <img class="demo cursor" src="https://www.stoodnt.com/blog/wp-content/uploads/2019/12/study_music.jpg" style="width:100%" onclick="currentSlide(4)" alt="Northern Lights">
-                </div>
-                <div class="column">
-                <img class="demo cursor" src="https://www.stoodnt.com/blog/wp-content/uploads/2019/12/study_music.jpg" style="width:100%" onclick="currentSlide(5)" alt="Nature and sunrise">
-                </div>    
-                <div class="column">
-                <img class="demo cursor" src="https://www.stoodnt.com/blog/wp-content/uploads/2019/12/study_music.jpg" style="width:100%" onclick="currentSlide(6)" alt="Snowy Mountains">
-                </div>
-            </div>
-        <?php /*
-        </div> 
-        </div>
-        */ ?>
       </div>
-      <div class="col">
+      <div class="col align-self-center">
+        
             <h1><?php echo $curso->getNombre()?></h1>
             <hr>
             <p class="col-12 "><?php echo "Detalles: <br/>".$curso->getDescripccion()?></p>
@@ -223,16 +196,64 @@ img {
                   <?php
                     if(isset($_SESSION["rol"])){
                       if($_SESSION["rol"]=="estudiante"){
-                        echo '<button type="submit" name="registrar" class="btn btn-success" >Inscribirse</button>';
+                        $estudiante=new Estudiante($_SESSION["id"]);
+                        $estudiante->consultar();
+                        $matriculas = $estudiante->consultarMatriculas();
+                        $habilitado=1;
+                        foreach($matriculas as $m){
+                          $v=$m->getVariante();
+                          $c=new Curso($v->getCurso());
+                          $c->consultar();
+                          if($c->getId()==$curso->getId()){
+                              $habilitado=0;
+                          }
+                        }  
+                        echo '<button type="submit" name="registrar" class="btn btn-success" '.(($habilitado==0)?'disabled':' ').' >Inscribirse</button>';
                       }
                     }else{
-                      echo '<a type="button" href="#" class="btn btn-outline-success" role="button" aria-pressed="true">Inscribirse</a>';
+                      echo '<a type="button" href="#" data-toggle="modal" data-target="#sesion" class="btn btn-outline-success" role="button" aria-pressed="true">Inscribirse</a>';
                     }
                   ?>                  
               </div> 
-            </form>           
+            </form> 
+
       </div>
   </div>
+</div>
+
+
+<div class="modal fade" id="sesion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Inicia sesion para continuar</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>      
+      <form method="post" action="index.php?pid=<?php echo base64_encode("presentacion/autenticar.php") ?>">
+        <div class="modal-body">
+                <div class="alert alert-warning" role="alert">
+                  Debes iniciar sesion para poder hacer esto!
+                </div>
+                <div class="form-group">
+                  <input type="email" name="correo" class="form-control" placeholder="Correo*" required="required">
+                </div>
+                <div class="form-group">
+                  <input type="password" name="clave" class="form-control" placeholder="Clave*" required="required">
+                </div>
+                <div class="container" style="text-align: center;">
+                <h>No tienes una cuenta? </h><a href=<?php echo "index.php?pid=" . base64_encode("presentacion/registro.php")?> >Registrate</a>
+                </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button name="autenticar" type="submit" class="btn btn-primary">Autenticar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+ </div>
 </div>
 
 <script>
@@ -251,18 +272,18 @@ function showSlides(n) {
   var i;
   var slides = document.getElementsByClassName("mySlides");
   var dots = document.getElementsByClassName("demo");
-  var captionText = document.getElementById("caption");
+  //var captionText = document.getElementById("caption");
   if (n > slides.length) {slideIndex = 1}
   if (n < 1) {slideIndex = slides.length}
   for (i = 0; i < slides.length; i++) {
-      slides[i].style.display = "none";
+      slides[i].style.display = "";
   }
   for (i = 0; i < dots.length; i++) {
-      dots[i].className = dots[i].className.replace(" active", "");
+      dots[i].className = dots[i].className.replace("active", "");
   }
   slides[slideIndex-1].style.display = "block";
-  dots[slideIndex-1].className += " active";
-  captionText.innerHTML = dots[slideIndex-1].alt;
+  dots[slideIndex-1].className += "active";
+  //captionText.innerHTML = dots[slideIndex-1].alt;
 }
 </script>
 

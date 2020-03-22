@@ -13,29 +13,45 @@ $fechacierre = "";
 $error="";
 
 if (isset($_POST["registrar"])) { 
-    $nombre = $_POST["nombre"];
-    $descripccion = nl2br(htmlentities($_POST["descripccion"], ENT_QUOTES, 'UTF-8'));
-    $fechacierre = $_POST["fecha"];
-    $director = $_POST["director"];
+        $nombre = $_POST["nombre"];
+        $descripccion = nl2br(htmlentities($_POST["descripccion"], ENT_QUOTES, 'UTF-8'));
+        $fechacierre = $_POST["fecha"];
+        $director = $_POST["director"];
 
-    //echo "Llego: ".$nombre." / ".$descripccion." / ".$fechacierre." / ".$director."<br/>";
+        //echo "Llego: ".$nombre." / ".$descripccion." / ".$fechacierre." / ".$director."<br/>";
 
-    $variante;
-    $i=0;
-    foreach($modalidades as $m){
-        if(isset($_POST["modalidad".$m->getId()])){
-            if($_POST["modalidad".$m->getId()]){
-                $i++;
-                $costo = $_POST["costo".$m->getId()];
-            }
-        }        
-    }
+        $variante;
+        $i=0;
+        foreach($modalidades as $m){
+            if(isset($_POST["modalidad".$m->getId()])){
+                if($_POST["modalidad".$m->getId()]){
+                    $i++;
+                    $costo = $_POST["costo".$m->getId()];
+                }
+            }        
+        }
 
-    $sedes;
-    if($i!=0){
+        $sedes;
+        if($i!=0){
         if(isset($_POST["sedes"])){
             $options = implode(',', $_POST['sedes']);
             $sedes = explode(",", $options);
+        }
+
+        // Count total files
+        $countfiles = count($_FILES['galeria']['name']);  
+        // Looping all files
+        for($i=0;$i<$countfiles;$i++){
+            $carpeta_destino = $_SERVER['DOCUMENT_ROOT'] . '/InstitutoPry/img/';
+            $path = $_FILES['galeria']['name'][$i]; 
+            $ext = pathinfo($path, PATHINFO_EXTENSION);
+            $tipoarchivo = $_FILES['galeria']['type'][$i]; 
+            if ($tipoarchivo == "image/png" || $tipoarchivo == "image/jpeg" || $tipoarchivo == "image/jpg"){
+                // Upload file
+                //move_uploaded_file($_FILES['galeria']['tmp_name'][$i],$carpeta_destino.(round(microtime(true) * 1000)).".".$ext);        
+            }else{
+                $error="Almenos uno de los archivos no es de tipo imagen";
+            }        
         }
     }else{
         $error="No se ha seleccionado ninguna modalidad!";
@@ -65,6 +81,12 @@ if (isset($_POST["registrar"])) {
                 }
             }        
         }
+        for($i=0;$i<$countfiles;$i++){
+            $nombrearchivo=(round(microtime(true) * 1000)).".".$ext;
+            move_uploaded_file($_FILES['galeria']['tmp_name'][$i],$carpeta_destino.$nombrearchivo);
+            $imagen =new Imagen("", $nombrearchivo, $id);
+            $imagen -> registrar();
+        }
         print "<script>window.setTimeout(function() { window.location = 'index.php?pid=" . base64_encode("presentacion/consultarCurso.php")."&Success=1' }, 200);</script>";
     }
 }
@@ -86,7 +108,7 @@ if (isset($_POST["registrar"])) {
                       <br/>';
             }
         ?>
-        <form class="needs-validation" novalidate action=<?php echo "index.php?pid=" . base64_encode("presentacion/registrarCurso.php") ?> method="post">
+        <form class="needs-validation" novalidate action=<?php echo "index.php?pid=" . base64_encode("presentacion/registrarCurso.php") ?> enctype='multipart/form-data' method="post">
             
             <div class="accordion" id="registro">
                 <div class="card">
@@ -177,7 +199,13 @@ if (isset($_POST["registrar"])) {
                         <div id="err">
                             
                         </div>
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                        Para finalizar, selecciona las imagenes que conformaran la galeria.
+                        <br/><br/>
+                        <div class="form-group custom-file">
+                            <input type="file" name="galeria[]" required="true" accept="image/x-png,image/jpeg" class="custom-file-input" id="galeria" lang="es" multiple>
+                            <label class="custom-file-label" for="galeria" data-browse="Elegir">Seleccionar Archivos</label>
+                            <div class="invalid-feedback">Archivo invalido, asegurate de subir un archivo de imagen<br/><br/><br/></div>
+                        </div>
                         <div class="form-group">                            
                         </div>
                         <div class="container text-right">
@@ -256,4 +284,9 @@ if (isset($_POST["registrar"])) {
         }
     });
     <?php }?>
+</script>
+<script type="application/javascript">
+    $(document).on('change', '.custom-file-input', function (event) {
+        $(this).next('.custom-file-label').html("Archivos cargados");
+    })
 </script>

@@ -14,7 +14,25 @@ $profesores = $profesor->consultarTodos();
 		<div class="col-12">
 			<div class="card">				
 				<div class="card-body">
-					<?php echo "<tr><td colspan='9'>" . count($profesores) . " registros encontrados</td></tr>" ?>					
+					<div class="row">
+						<div class="col-md-auto">
+							<h1 class="display-4">Registro de Docentes</h1>
+							<?php echo "<tr><td colspan='9'>" . count($profesores) . " registros encontrados</td></tr>" ?>
+						</div>
+						<div class="col">
+						<?php
+							if(isset($_GET["Success"])){
+								echo '<div class="align-items-center" style="height:100px; display: grid;">
+										<div id="alert" class="alert alert-success alert-dismissible fade show" role ="alert" >
+											Se ha registrado un nuevo docente!
+											<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										</div>';
+							}
+						?>
+						</div>										
 				</div>
 			</div>
 		</div>
@@ -76,3 +94,11 @@ $profesores = $profesor->consultarTodos();
 </div>
 
 
+<script type="text/javascript">
+	$(document).ready(function() {
+	// show the alert
+		setTimeout(function() {
+			$(".alert").alert('close');
+		}, 2000);
+	});
+</script>   

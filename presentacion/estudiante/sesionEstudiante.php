@@ -24,7 +24,7 @@
             
             if ($m->getEstadoId() == 1){
                 echo   '<div class="col mb-4 ">
-                            <a  href="index.php?pid='.base64_encode("presentacion/estudiante/misMaterias.php").'&idCurso='.$c->getId().'" class="list-group-item-action">
+                            <a  href="index.php?pid='.base64_encode("presentacion/estudiante/misMaterias.php").'&idMatricula='.$m->getId().'" class="list-group-item-action">
                                 <div class="card h-100 mx-auto border-success list-group-item-action" style="width: 18rem;">                                        
                                         <img src="https://s03.s3c.es/imag/_v0/770x420/a/0/9/Pila-de-libros.jpg" class="card-img-top" alt="...">
                                         <div class="card-body">
@@ -37,7 +37,7 @@
                         </div>';
             }else if ($m->getEstadoId() == 0){
                 echo   '<div class="col mb-4 ">
-                            <a  href="index.php?pid='.base64_encode("presentacion/estudiante/misMaterias.php").'&idCurso='.$c->getId().'" class="list-group-item-action">
+                            <a  href="index.php?pid='.base64_encode("presentacion/estudiante/misMaterias.php").'&idMatricula='.$m->getId().'" class="list-group-item-action">
                                 <div class="card h-100 mx-auto border-secondary list-group-item-action" style="width: 18rem;">                                        
                                         <img src="https://concepto.de/wp-content/uploads/2013/08/geometria-e1551991013554.jpg" class="card-img-top" alt="...">
                                         <div class="card-body">

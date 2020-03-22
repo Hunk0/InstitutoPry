@@ -19,8 +19,11 @@
         $matricula = new Matricula($_GET["idMatr"]);
         $matricula -> consultar();
         $v = $matricula->getVariante();
+        $modalidad = $v->getModalidad();        
         $curso = $v->consultarCurso();
         $curso->consultar();
+        $director=new Profesor($curso->getDirector());
+        $director->consultar();
             //$estudiante = new Estudiante($_GET["idEst"]); 
             //$curso = $estudiante -> ConsultarCurso($_GET["idCur"]);
     }
@@ -38,13 +41,11 @@
     <div class="col col-lg-8">
         <h1><?php echo $curso->getNombre();?></h1>
         <hr>
-        <?php
-        /*
-            if(isset($_GET["idEst"])){       
-                echo '<small class="text-muted">Modalidad: '.$matricula->getModalidad().'</small><br/>';
-                echo '<small class="text-muted">Director: '.$curso->getDirector().'</small><br/>';
-                echo '<small class="text-muted">Sede: '.$matricula->getModalidad().'</small><br/>';
-            }*/
+        <?php        
+            //if(isset($_GET["idEst"])){       
+                echo '<small class="text-muted">Modalidad: '.$modalidad->getNombre().'</small><br/>';
+                echo '<small class="text-muted">Director: '.$director->getNombres().' '.$director->getApellidos().'</small><br/>';
+            //}
         ?>
         <br/><p class="mb-0"><?php echo $curso->getDescripccion()?></p><br/>        
         <div class="card text-center">
@@ -75,10 +76,20 @@
             }
         ?>  
              
-</div>
+        </div>
     </div>
 </div>
 
+
+<script>
+    $('#eliminar').click(function(){
+        $.get($('a').attr('href'), function(destino){
+            $('#modal').modal('hide')
+            $('#eliminarModal').modal('show')
+            $('#eliminarModal').find(".btn-danger").attr('id', '<?php echo $_GET["idMatr"] ?>');
+        });
+    });
+</script>
 
 <script type="text/javascript">
     $(function () {
@@ -99,7 +110,7 @@
             estado=estado+1;
 
             <?php echo "var ruta = \"indexAjax.php?pid=" . base64_encode("presentacion/EditorAjax.php") . "&idMatr=" . $matricula->getId() . "&estado=\"+estado ;\n"; ?>
-            $(<?php echo '"#Curso'.$matricula->getId().'"'?>).load(ruta);
+            $(<?php echo '"#Matricula'.$matricula->getId().'"'?>).load(ruta);
             
         } else {            
             document.getElementById("estado").innerHTML = "Esperando Pago";
@@ -107,7 +118,7 @@
             estado=estado-1;
 
             <?php echo "var ruta = \"indexAjax.php?pid=" . base64_encode("presentacion/EditorAjax.php") . "&idMatr=" . $matricula->getId() . "&estado=\"+estado ;\n"; ?>
-            $(<?php echo '"#Curso'.$matricula->getId().'"'?>).load(ruta);
+            $(<?php echo '"#Matricula'.$matricula->getId().'"'?>).load(ruta);
         }
     });
 </script>

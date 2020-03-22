@@ -56,11 +56,11 @@ $estudiantes = $estudiante->consultarTodos();
 											$c = $v->consultarCurso();
 
 											if ($m->getEstadoId() == 0){
-												echo "<a id='Curso" . $c->getId() . "' href='modalCurso.php?idMatr=".$c->getId()."' data-toggle='modal' data-target='#modal'  > 
+												echo "<a id='Matricula" . $m->getId() . "' href='modalCurso.php?idMatr=".$m->getId()."' data-toggle='modal' data-target='#modal'  > 
 														<span style='padding: .0.1rem 0.1rem; color : #343a40 !important;' class='fas fa-book' data-toggle='tooltip' class='tooltipLink' data-placement='top' data-original-title='".$c->getNombre()." (".$m->getEstado().")"."'></span> 
 													  </a>";
 											}else if ($m->getEstadoId() == 1){
-												echo "<a id='Curso" . $c->getId() . "' href='modalCurso.php?idMatr=".$c->getId()."' data-toggle='modal' data-target='#modal' > 
+												echo "<a id='Matricula" . $m->getId() . "' href='modalCurso.php?idMatr=".$m->getId()."' data-toggle='modal' data-target='#modal' > 
 														<span style='padding: .0.1rem 0.1rem; color : #28a745 !important;' class='fas fa-book' data-toggle='tooltip' class='tooltipLink' data-placement='top' data-original-title='".$c->getNombre()." (".$m->getEstado().")"."'></span> 
 													  </a>";
 											}											
@@ -82,7 +82,7 @@ $estudiantes = $estudiante->consultarTodos();
 
 
 
-<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
   <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -98,9 +98,45 @@ $estudiantes = $estudiante->consultarTodos();
   </div>
 </div>
 
+<div class="modal fade bd-example-modal-sm" id="eliminarModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+    <div class="modal-content">
+		<div class="modal-header">
+			<h5 class="modal-title" id="modalLabel">Eliminar inscripccion</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		<div class="modal-body">
+			<div class="alert alert-danger text-center" role="alert">
+				<i class="fas fa-exclamation-triangle fa-3x"></i>
+				<p>Esta a punto de eliminar la inscripccion de este estudiante en esta materia, esta accion no se puede deshacer</p>
+			</div>			
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+			<button type="button" class="btn btn-danger"><i class="fas fa-exclamation-triangle"></i> Eliminar</button>
+		</div>
+    </div>
+  </div>
+</div>
+
 <script>
 	$('body').on('show.bs.modal', '.modal', function (e) {
 		var link = $(e.relatedTarget);
-		$(this).find(".modal-body").load(link.attr("href"));
+		if($(this). attr("id")=='modal'){
+			$(this).find(".modal-body").load(link.attr("href"));
+		}
+		
 	});
 </script>
+<script>
+	$('.btn-danger').click(function(){
+		console.log($(this). attr("id"));
+		var id = $(this). attr("id");
+		<?php echo "var ruta = \"indexAjax.php?pid=" . base64_encode("presentacion/EditorAjax.php") . "&deleteMatr=\"+id+\"&estado=\"+estado ;\n"; ?>
+        $('#Matricula'+id).load(ruta);
+		$('#eliminarModal').modal('hide');
+    });
+</script>
+

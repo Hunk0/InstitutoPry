@@ -11,7 +11,17 @@ class ImagenDAO{
         $this -> cursoid = $cursoid;
     }
 
-    
+    function registrar(){
+        return "insert into imagen
+                (nombre, 	curso_idcurso )
+                values ('" . $this->nombre . "', '" . $this->cursoid . "')";
+    }
+
+    function consultar(){
+        return "SELECT idimagen, nombre, curso_idcurso
+                FROM imagen
+                WHERE idimagen = '". $this->id ."'";
+    }
 }
     
 

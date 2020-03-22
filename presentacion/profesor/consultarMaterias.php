@@ -78,15 +78,33 @@ foreach ($materias as $m) {
 							
 								$variantes = $curso->consultarVariantes();
 								$cantidad = 0;
+								$acceso=0;
 								foreach($variantes as $v){
 									$matriculas = $v -> consultarMatriculas();
+									if(isset($_GET["Plataforma"])){
+										$modalidad = $v->getModalidad();
+										if($modalidad->getPrivilegio()>$acceso){
+											$acceso=$modalidad->getPrivilegio();
+										}
+									}									
 									$cantidad += count($matriculas);
 								}
-								echo "<tr>";
-                                echo "<td><a href='index.php?pid=".base64_encode($redireccion)."&idMateria=".$m->getId()."' >" .  $m->getNombre() . "</a></td>";
-								echo "<td>".$cantidad."</td>";
-								echo "<td> </td>";//servicios
-								echo "</tr>";
+								if(isset($_GET["Plataforma"])){
+									if($acceso>0){
+										echo "<tr>";
+										echo "<td><a href='index.php?pid=".base64_encode($redireccion)."&idMateria=".$m->getId()."' >" .  $m->getNombre() . "</a></td>";
+										echo "<td>".$cantidad."</td>";
+										echo "<td> </td>";//servicios
+										echo "</tr>";
+									}
+								}else{
+									echo "<tr>";
+									echo "<td><a href='index.php?pid=".base64_encode($redireccion)."&idMateria=".$m->getId()."' >" .  $m->getNombre() . "</a></td>";
+									echo "<td>".$cantidad."</td>";
+									echo "<td> </td>";//servicios
+									echo "</tr>";
+								}
+								
 							}						
 						?>
 						</tbody>

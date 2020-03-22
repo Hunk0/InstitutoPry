@@ -20,12 +20,7 @@ if (isset($_POST["registrar"])) {
         $profesor -> registrar();
         $mensaje="Docente registrado con exito";
 
-        echo '<div id="alert" class="fixed-top alert alert-success alert-dismissible fade show" role ="alert" style=" position: absolute;">
-                '.$mensaje.'
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-          </div>'; 
+        print "<script>window.setTimeout(function() { window.location = 'index.php?pid=" . base64_encode("presentacion/profesor/consultarProfesor.php")."&Success' }, 200);</script>";
                   
     }else{
         $mensaje="Este correo electronico ya existe!";

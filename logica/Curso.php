@@ -142,6 +142,21 @@ class Curso{
         return $registros;
     }
 
+    function consultarGaleria(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> cursoDAO -> consultarGaleria());
+        $registros = array();
+
+        for($i=0; $i<$this->conexion->numFilas() ; $i++){
+            $registro = $this->conexion->extraer();
+            $registros[$i] = new Imagen($registro[0]);            
+            $registros[$i] -> consultar();
+        }
+
+        $this -> conexion -> cerrar();
+        return $registros;
+    }
+
     function consultarDirector(){
         $profesor = new Profesor($this -> director);
         $profesor -> consultar();

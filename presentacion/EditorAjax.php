@@ -93,6 +93,13 @@ if(isset($_GET["idMateria"])){
       echo '</table>';
 }
 
+if(isset($_GET["deleteMatr"])){
+    $matricula=new Matricula($_GET["deleteMatr"]);
+    $matricula->consultar();
+    $matricula->eliminar();
+    echo "";
+}
+
 if(isset($_GET["idNota"])){
     $nota = new Nota($_GET["idNota"], "", "", $_GET["valor"]);
     $nota -> actualizar();

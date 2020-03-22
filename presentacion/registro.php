@@ -24,7 +24,8 @@ if(isset($_POST["registrar"])){
     $estudiante = new Estudiante("", $nombre, $apellido ,$correo, $clave, $cedula, $telefono, $direccion, "");
     if(!$estudiante -> existeCorreo()){
         $estudiante -> registrar();
-        $error = 0;
+		$error = 0;
+		print "<script>window.setTimeout(function() { window.location = 'index.php?pid=" . base64_encode("presentacion/autenticar.php")."&NewUser' }, 200);</script>";
     }else{
         $error = 1;
 	}

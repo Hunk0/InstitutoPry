@@ -2,10 +2,12 @@
 // require 'logica/Persona.php';
 // require 'logica/Administrador.php';
 include 'presentacion/mnuVisitante.php';
-$correo = $_POST["correo"];
-$clave = $_POST["clave"];
+
 
 $error=0;
+if(isset($_POST["clave"])){
+$correo = $_POST["correo"];
+$clave = $_POST["clave"];
 $administrador = new Administrador("", "", "", $correo, $clave);
   $profesor = new Profesor("", "", "" ,$correo, $clave, "");
   $estudiante = new Estudiante("", "", "" ,$correo, $clave, "", "", "", "");
@@ -27,7 +29,7 @@ $administrador = new Administrador("", "", "", $correo, $clave);
     }else{      
         $error=1;
     }
-
+}
 ?>
 <br/><br/><br/><br/>
 <div class="container">
@@ -40,6 +42,11 @@ $administrador = new Administrador("", "", "", $correo, $clave);
                 if($error==1){
                     echo '<div class="alert alert-danger" role="alert">
                             Correo o contraseña invalidos, intenta de nuevo!
+                        </div>';
+                }
+                if(isset($_GET["NewUser"])){
+                    echo '<div class="alert alert-success" role="alert">
+                            Registro exitoso! inicia sesion para continuar
                         </div>';
                 }
             ?>

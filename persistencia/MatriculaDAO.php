@@ -20,6 +20,10 @@ class MatriculaDAO{
                 WHERE idmatricula =" . $this->id . ";";  
     }
 
+    function eliminar(){
+        return "DELETE FROM matricula 
+                WHERE idmatricula =" . $this->id . ";";
+    }
     function actualizarEstado(){
         return "UPDATE matricula 
                 SET matricula.estado = '".$this->estado."' 

@@ -1,41 +1,40 @@
 <?php
 include 'presentacion/estudiante/mnuEstudiante.php';
-
-if(isset($_GET["idCurso"])){
+$acceso=0;
+if(isset($_GET["idMatricula"])){
 	$estudiante = new Estudiante($_SESSION["id"]);
 	$estudiante -> consultar();
 
-	$variantes = $estudiante->consultarVariantes();
-	$variante=null;
-	foreach ($variantes as $v){
-		if($v->getCurso()==$_GET["idCurso"]){
-			$variante = $v;
+	$matricula = new Matricula($_GET["idMatricula"]);
+	$matricula->consultar();
+
+	$acceso=$matricula->getEstadoId();
+}
+
+if($acceso==1){
+	$variante=new Variante($matricula->getVarianteId());
+	$variante->consultar();
+
+	$curso=new Curso($variante->getCurso());
+	$curso->consultar();
+
+	$materias = $curso -> consultarMaterias();
+
+	$modalidad = new Modalidad($variante->getModalidadId());
+	$modalidad -> consultar();
+
+	$profesor = new Profesor($curso->getDirector());
+	$profesor -> consultar();
+
+	$maxn=0;
+	foreach ($materias as $m){
+		$notas = $estudiante->consultarNotas($m->getId());
+		if(count($notas)>$maxn){
+			$maxn=count($notas);
 		}
 	}
-	if($variante!=null){
-		$curso = new Curso($variante->getCurso());
-		$curso -> consultar();
+	echo $maxn;
 
-		$materias = $curso -> consultarMaterias();
-
-		$modalidad = new Modalidad($variante->getModalidadId());
-		$modalidad -> consultar();
-
-		$profesor = new Profesor($curso->getDirector());
-		$profesor -> consultar();
-
-		$maxn=0;
-		foreach ($materias as $m){
-			$notas = $estudiante->consultarNotas($m->getId());
-			if(count($notas)>$maxn){
-				$maxn=count($notas);
-			}
-		}
-		echo $maxn;
-	}	
-}else{
-    //alo
-}
 ?>
 <br/><br/><br/><br/>
 <div class="container">
@@ -134,32 +133,40 @@ if(isset($_GET["idCurso"])){
 	<h1>Analisis de rendimiento</h1>
 	<div id="rendimiento" style="height: 300px;"></div>
 	<script>new Chartkick.LineChart("rendimiento", <?php unset($analisis[0]); echo json_encode($analisis); ?>)</script>
-<?php if($modalidad->getPrivilegio()>0){?>	
-	<hr>
-    <h1>Plataforma</h1>
-	<br/>
-	<div class="container" style="width: 90%">
-		<div class="row row-cols-1 row-cols-md-3">
-		<?php
-		foreach ($materias as $m){
-			$profesor = new Profesor($m->getProfesorId());
-			$profesor -> consultar();
-			echo '	<div class="col mb-4">	
-						<div class="card h-100 mx-auto border-dark mb-3" style="width: 13rem;">
-							<div class="card-body text-dark ">
-								<h5 class="card-title align-middle"><a href="index.php?pid='.base64_encode("presentacion/consultarPublicaciones.php").'&idMateria='.$m->getId().'" style="text-decorations:none; color:inherit;">'.$m->getNombre().'</a></h5>
-								<p class="card-text align-middle">Docente:<br/>'.$profesor->getNombres().' '.$profesor->getApellidos().'</p>
-							</div>
-						</div>
-					</div>';
-		}
-		?>	
-		</div>
-		
-	</div>	
-<?php }?>
+		<?php if($modalidad->getPrivilegio()>0){?>	
+			<hr>
+			<h1>Plataforma</h1>
+			<br/>
+			<div class="container" style="width: 90%">
+				<div class="row row-cols-1 row-cols-md-3">
+				<?php
+				foreach ($materias as $m){
+					$profesor = new Profesor($m->getProfesorId());
+					$profesor -> consultar();
+					echo '	<div class="col mb-4">	
+								<div class="card h-100 mx-auto border-dark mb-3" style="width: 13rem;">
+									<div class="card-body text-dark ">
+										<h5 class="card-title align-middle"><a href="index.php?pid='.base64_encode("presentacion/consultarPublicaciones.php").'&idMateria='.$m->getId().'" style="text-decorations:none; color:inherit;">'.$m->getNombre().'</a></h5>
+										<p class="card-text align-middle">Docente:<br/>'.$profesor->getNombres().' '.$profesor->getApellidos().'</p>
+									</div>
+								</div>
+							</div>';
+				}
+				?>	
+				</div>
+				
+			</div>	
+		<?php }?>
 </div>
-
+<?php }else{ ?>
+	<br/><br/><br/><br/><br/><h1 class="d-flex justify-content-center">Esperando Pago</h1><br/>
+	<div class="container d-flex justify-content-center">    
+		<div class="text-center" style="width: 25rem;"> 
+		<p>Para obtener acceso completo haga un deposito en la cuenta bancaria XXXXXXXXXX con su nombre y numero de identificacion, especificando el curso al que desea acceder.</p>
+		<p>Tambien puede realizar el pago mediante tarjeta de credito haciendo click <a href="#">aqui</a></p>
+		</div>
+	</div>
+<?php } ?>
 <script type="text/javascript">
 	$(document).ready(function() {
 	// show the alert

@@ -17,8 +17,6 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href='index.php?pid=<?php echo base64_encode("presentacion/profesor/consultarProfesor.php")?>'>Consular</a>
           <a class="dropdown-item" href='index.php?pid=<?php echo base64_encode("presentacion/profesor/registrarProfesor.php")?>'>Nuevo docente</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
         </div>
       </li>
 
@@ -28,9 +26,8 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href='index.php?pid=<?php echo base64_encode("presentacion/consultarCurso.php")?>'>Consular</a>
-          <a class="dropdown-item" href="#">Another action</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
+          <a class="dropdown-item" href="#">Agregar nueva sede</a>
         </div>
       </li>
 
@@ -40,9 +37,6 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href='index.php?pid=<?php echo base64_encode("presentacion/estudiante/consultarEstudiante.php")?>'>Consular</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
         </div>
       </li>
     </div> 

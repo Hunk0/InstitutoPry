@@ -93,9 +93,9 @@ class EstudianteDAO{
     }
 
     function actualizarFoto(){
-        return "update paciente set
+        return "update estudiante set
                 foto = '" . $this -> foto . "'
-                where idpaciente=" . $this -> id;
+                where idestudiante=" . $this -> id;
     }
 
 }

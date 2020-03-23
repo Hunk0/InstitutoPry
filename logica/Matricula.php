@@ -42,13 +42,23 @@ class Matricula{
 
     function eliminar(){
         $this -> conexion -> abrir();
-        $this -> conexion -> ejecutar($this -> matriculaDAO -> eliminar());
+        $this -> conexion -> ejecutar($this -> matriculaDAO -> eliminarMSede());
+        $this -> conexion -> ejecutar($this -> matriculaDAO -> eliminarMatricula());
         $this -> conexion -> cerrar();
     }
 
     function actualizarEstado(){
         $this -> conexion -> abrir();
         $this -> conexion -> ejecutar($this -> matriculaDAO -> actualizarEstado());
+        $this -> conexion -> cerrar();
+    }
+
+    function ultimoId(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> matriculaDAO -> ultimoId());
+        $resultado = $this -> conexion -> extraer();
+        $this -> id = $resultado[0];
+        $this -> matriculaDAO = new MatriculaDAO($resultado[0]);
         $this -> conexion -> cerrar();
     }
 
@@ -68,7 +78,15 @@ class Matricula{
         }
     }
 
-    
+    function InsertarSede($sedeid){
+        //if($like!=""){
+            $this -> conexion -> abrir();
+            $this -> conexion -> ejecutar($this -> matriculaDAO -> InsertarSede($sedeid));
+            //echo ($this -> pacienteDAO -> consultarTodosLike($like));
+            $this -> conexion -> cerrar();
+       //}
+    }
+
     function getId(){
         return $this -> id;
     }

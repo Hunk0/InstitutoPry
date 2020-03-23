@@ -43,6 +43,7 @@ if (isset($_POST["registrar"])) {
         // Looping all files
         for($i=0;$i<$countfiles;$i++){
             $carpeta_destino = $_SERVER['DOCUMENT_ROOT'] . '/InstitutoPry/img/';
+            $nombrearchivo = round(microtime(true) * 1000); 
             $path = $_FILES['galeria']['name'][$i]; 
             $ext = pathinfo($path, PATHINFO_EXTENSION);
             $tipoarchivo = $_FILES['galeria']['type'][$i]; 
@@ -204,7 +205,7 @@ if (isset($_POST["registrar"])) {
                         <div class="form-group custom-file">
                             <input type="file" name="galeria[]" required="true" accept="image/x-png,image/jpeg" class="custom-file-input" id="galeria" lang="es" multiple>
                             <label class="custom-file-label" for="galeria" data-browse="Elegir">Seleccionar Archivos</label>
-                            <div class="invalid-feedback">Archivo invalido, asegurate de subir un archivo de imagen<br/><br/><br/></div>
+                            <div class="invalid-feedback">Archivos invalidos, asegurate de subir archivos de imagen<br/><br/><br/></div>
                         </div>
                         <div class="form-group">                            
                         </div>

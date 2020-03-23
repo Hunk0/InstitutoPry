@@ -136,16 +136,16 @@ img {
                 //style width:100% => height: 425px;
                 echo '<div class="mySlides text-center" >
                         <div class="numbertext">'.($i+1).' / '.count($galeria).'</div>
-                        <img src="img/'.$galeria[$i]->getNombre().'" style="height: 425px;">
+                        <img src="img/'.$galeria[$i]->getNombre().'" style="max-width: 567px; max-height: 425px;">
                       </div>';
               }
             ?>
 
           
             <div class="row" style="display: flex;
-    flex-wrap: wrap; /* Optional. only if you want the items to wrap */
-    justify-content: center; /* For horizontal alignment */
-    align-items: center; /* For vertical alignment */">
+            flex-wrap: wrap; /* Optional. only if you want the items to wrap */
+            justify-content: center; /* For horizontal alignment */
+            align-items: center; /* For vertical alignment */">
                 <?php
                   $galeria=$curso->consultarGaleria();
                   for($i=0; $i<count($galeria); $i++){

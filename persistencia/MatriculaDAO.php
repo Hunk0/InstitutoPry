@@ -20,7 +20,12 @@ class MatriculaDAO{
                 WHERE idmatricula =" . $this->id . ";";  
     }
 
-    function eliminar(){
+    function eliminarMSede(){
+        return "DELETE FROM sede_has_matricula
+                WHERE matricula_idmatricula  =" . $this->id . ";";
+    }
+
+    function eliminarMatricula(){
         return "DELETE FROM matricula 
                 WHERE idmatricula =" . $this->id . ";";
     }
@@ -28,6 +33,16 @@ class MatriculaDAO{
         return "UPDATE matricula 
                 SET matricula.estado = '".$this->estado."' 
                 WHERE idmatricula =" . $this->id . ";";                   
+    }
+
+    function ultimoId(){
+        return "SELECT MAX(idmatricula) AS idmatricula FROM matricula";
+    }
+
+    function InsertarSede($sedeid){
+        return "INSERT INTO sede_has_matricula
+                (sede_idsede, 	matricula_idmatricula )
+                VALUES ('".$sedeid."', '".$this->id."')";
     }
 
     function registrar(){

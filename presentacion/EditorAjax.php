@@ -57,7 +57,7 @@ if(isset($_GET["idMateria"])){
           $estudiantes[$i] = new Estudiante($matriculas[$i]->getEstudianteId());
           $estudiantes[$i] -> consultar();
       }
-
+    /*
       echo '<table class="table table-bordered table-hover">';
       echo '<thead>';
       echo  '<tr>';
@@ -91,6 +91,8 @@ if(isset($_GET["idMateria"])){
       echo   '</tr>';
       echo  '</tbody>';
       echo '</table>';
+      */
+      echo '';
 }
 
 if(isset($_GET["deleteMatr"])){
@@ -118,4 +120,28 @@ if(isset($_GET["idNota"])){
     }
     echo $i/(count($notas));
 }
+
+if(isset($_GET["idMap"])){
+    $sede=new Sede($_GET["idMap"]);
+    $sede->consultar();
+    echo '<iframe width="600" height="500" style="border:0;" data-toggle="tooltip" data-placement="bottom" 
+    title="Direccion: '.$sede->getDireccion().'" src="https://maps.google.com/maps?q='.$sede->getPosx().','.$sede->getPosy().'&output=embed"></iframe>';
+}
+
+if(isset($_FILES["file"])){
+    if($_FILES["file"]["name"] != ''){
+        $test = explode('.', $_FILES["file"]["name"]);
+        $ext = end($test);
+        $name = rand(100, 999) . '.' . $ext;
+        $location = './temp/' . $name;  
+        move_uploaded_file($_FILES["file"]["tmp_name"], $location);
+        echo '<img src="'.$location.'" data-toggle="tooltip" class="tooltipLink" data-placement="bottom" data-original-title="Actualizar foto de perfil" style="border-radius: 50%; 
+        width: 300px; height: 300px;
+        object-fit: cover;">­';
+        echo '<p><br/><button type="submit" name="actualizarfoto"  class="btn btn-primary">Guardar</button></p>';
+        //echo '<img src="'.$location.'" height="150" width="225" class="img-thumbnail" />';
+    }
+}
+
+
 ?>

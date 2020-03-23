@@ -1,6 +1,6 @@
 <?php
 if(isset($_GET['filtro'])){
-    if($_GET['filtro']!=""){
+    if($_GET['filtro']!="•"){
         $curso = new Curso();
         $cursos = $curso->Buscar($_GET['filtro']);
     

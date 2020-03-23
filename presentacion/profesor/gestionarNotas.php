@@ -32,18 +32,20 @@
       <?php echo "<tr><td colspan='9'>".count($estudiantes)." registros encontrados</td></tr>" ?>
     </div>
     <div class="col">
-						<?php
-							if(isset($_GET["Success"])){
-								echo '<div class="align-items-center" style="height:100px; display: grid;">
-										<div id="alert" class="alert alert-success alert-dismissible fade show" role ="alert" >
-											Se ha añadido una nueva columna de notas!
-											<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-											<span aria-hidden="true">&times;</span>
-											</button>
-										</div>
-										</div>';
-							}
-						?>
+						<div id="estado">
+            <?php
+              if(isset($_GET["Success"])){
+                echo '<div class="align-items-center" style="height:100px; display: grid;">
+                      <div id="alert" class="alert alert-success alert-dismissible fade show" role ="alert" >
+                          Se ha añadido una nueva columna de notas!
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                          </button>
+                      </div>
+                      </div>';
+              }
+            ?>
+            </div>
 		</div>
   </div>
   <hr><br/>	
@@ -140,8 +142,8 @@
 <script type="text/javascript">
     $('#nuevaNota').on('click', function(event) {
       <?php echo "var ruta = \"indexAjax.php?pid=" . base64_encode("presentacion/EditorAjax.php") . "&idMateria=".$_GET["idMateria"]."\";\n"; ?>
-      $('#tabla').load(ruta); 
-      <?php echo "window.setTimeout(function() { window.location = 'index.php?pid=" . base64_encode("presentacion/profesor/gestionarNotas.php")."&idMateria=".$_GET["idMateria"]."&Success=1' }, 100);"?>
+      $('#estado').load(ruta); 
+      <?php echo "window.setTimeout(function() { window.location = 'index.php?pid=" . base64_encode("presentacion/profesor/gestionarNotas.php")."&idMateria=".$_GET["idMateria"]."&Success' }, 200);"?>
     });
 </script>
 <script type="text/javascript">

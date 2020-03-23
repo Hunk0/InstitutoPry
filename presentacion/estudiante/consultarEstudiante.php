@@ -67,7 +67,10 @@ $estudiantes = $estudiante->consultarTodos();
 										}
 								echo"</td>";
 
-								echo "<td> </td>";//servicios
+								echo '<td><a href="indexAjax.php?pid='.base64_encode("presentacion/estudiante/perfilEstudiante.php").'&idEst='.$e->getId().'" data-toggle="modal" data-target="#modal" >
+											<span class="fas fa-eye" data-toggle="tooltip" class="tooltipLink" data-placement="right" data-original-title="Detalles"></span> 
+										</a>
+									  </td>';//servicios
 								echo "</tr>";
 							
 							}							
@@ -120,7 +123,11 @@ $estudiantes = $estudiante->consultarTodos();
     </div>
   </div>
 </div>
-
+<script type="text/javascript">
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
 <script>
 	$('body').on('show.bs.modal', '.modal', function (e) {
 		var link = $(e.relatedTarget);

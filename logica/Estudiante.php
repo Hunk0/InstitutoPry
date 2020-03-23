@@ -44,6 +44,18 @@ class Estudiante extends Persona{
         $this -> conexion -> ejecutar($this -> estudianteDAO -> registrar());
         $this -> conexion -> cerrar();
     }
+    
+    function actualizar(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> estudianteDAO -> actualizar());
+        $this -> conexion -> cerrar();
+    }
+
+    function actualizarFoto(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> estudianteDAO -> actualizarFoto());
+        $this -> conexion -> cerrar();
+    }
 
     function consultar(){
         $this -> conexion -> abrir();

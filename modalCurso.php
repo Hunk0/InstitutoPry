@@ -80,6 +80,11 @@
     </div>
 </div>
 
+<script type="text/javascript">
+    $(function () {        
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
 
 <script>
     $('#eliminar').click(function(){
@@ -91,11 +96,6 @@
     });
 </script>
 
-<script type="text/javascript">
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-    })
-</script>
 
 <script type="text/javascript">
      var estado=<?php echo $matricula->getEstadoId()?>;

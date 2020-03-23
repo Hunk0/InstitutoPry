@@ -65,7 +65,7 @@ require 'logica/Entrega.php';
     ?>
 </body>
 
-<footer class="container">
+<footer id="footer" class="container">
     <br/><br/><br/><br/>
     <hr>
   <small class="float-right" >   

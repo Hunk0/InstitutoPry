@@ -30,10 +30,11 @@
     <ul class="navbar-nav ml-auto"> 
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-          <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" style="border-radius: 50%; width: 30px; border-style: double;"> Estudiante  ­
+          <img src='<?php echo ($estudiante->getFoto()!="")?("img/".$estudiante->getFoto()):"https://www.w3schools.com/howto/img_avatar.png"?>'style="border-radius: 50%; width: 30px; height: 30px; border-style: double; object-fit: cover;">­
+          <?php echo $estudiante->getNombres()?> ­
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" style="min-width: 0px; left: 50% !important;  right: auto !important;  text-align: center !important;  transform: translate(-50%, 0) !important;">
-            <a class="dropdown-item" href="#">Mi cuenta</a>
+            <a class="dropdown-item" href='index.php?pid=<?php echo base64_encode("presentacion/estudiante/perfilEstudiante.php")?>'>Mi cuenta</a>
             <a class="dropdown-item" href='index.php?pid=<?php echo base64_encode("presentacion/estudiante/sesionEstudiante.php")?>#Cursos'>Mis cursos</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href=<?php echo "index.php?salir=true"?>>Cerrar sesion</a>

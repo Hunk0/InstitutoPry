@@ -22,10 +22,24 @@ foreach ($materias as $m) {
 	$variantes = $curso->consultarVariantes();
 	$cantidad = 0;
 	foreach($variantes as $v){
-		$matriculas = $v -> consultarMatriculas();
-		$cantidad += count($matriculas);
+		if(isset($_GET["Plataforma"])){
+			$modalidad=$v->getModalidad();
+			if($modalidad->getPrivilegio()>0){
+				$matriculas = $v -> consultarMatriculas();
+				$cantidad += count($matriculas);
+			}
+		}else{
+			$matriculas = $v -> consultarMatriculas();
+			$cantidad += count($matriculas);
+		}		
 	}
-	$analisis+= array($m->getNombre() => $cantidad);
+	if(isset($_GET["Plataforma"])){
+		if($cantidad!=0){
+			$analisis+= array($m->getNombre() => $cantidad);
+		}		
+	}else{
+		$analisis+= array($m->getNombre() => $cantidad);
+	}
 }
 
 ?>
@@ -93,7 +107,13 @@ foreach ($materias as $m) {
 									if($acceso>0){
 										echo "<tr>";
 										echo "<td><a href='index.php?pid=".base64_encode($redireccion)."&idMateria=".$m->getId()."' >" .  $m->getNombre() . "</a></td>";
-										echo "<td>".$cantidad."</td>";
+										foreach($variantes as $v){
+											$modalidad=$v->getModalidad();
+											if($modalidad->getPrivilegio()>0){
+												$matriculas = $v -> consultarMatriculas();
+												echo "<td>".count($matriculas)."</td>";
+											}	
+										}										
 										echo "<td> </td>";//servicios
 										echo "</tr>";
 									}

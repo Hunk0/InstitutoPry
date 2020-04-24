@@ -95,6 +95,22 @@ class Profesor extends Persona{
         }
     }
 
+    function cantCursos(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> profesorDAO -> cantCursos());
+        $resultado = $this -> conexion -> extraer();
+        return $resultado[0];
+        $this -> conexion -> cerrar();
+    }
+
+    function cantMaterias(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> profesorDAO -> cantMaterias());
+        $resultado = $this -> conexion -> extraer();
+        return $resultado[0];
+        $this -> conexion -> cerrar();
+    }
+
     function getCorreo(){
         return $this -> correo;
     }

@@ -8,6 +8,7 @@
                         https://plugins.krajee.com/file-count-validation-demo
                         https://makitweb.com/upload-and-create-photo-gallery-with-photobox-in-php/
                         http://adnan-tech.com/tutorial/google-maps-in-php-without-api-key
+                        https://github.com/AltairCA/Fixed-Partition-Memory-Management/blob/master/main.cpp
                         <form>
                                 <div class="form-group">
                                     <label for="desc">Nombre:</label>

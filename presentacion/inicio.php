@@ -15,28 +15,28 @@ if(isset($_SESSION['id']) && isset($_SESSION['rol'])){
 ?>
 <div>
   <div class="bd-example">
-    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel" style="height:570px;">
+    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel" style="height:90vh;">
       <ol class="carousel-indicators">
         <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
         <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
         <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
       </ol>
-      <div class="carousel-inner" style="height:570px; object-fit: contain;">
-        <div class="carousel-item active" style="height:570px; object-fit: contain;">
+      <div class="carousel-inner" style="height:90vh; object-fit: contain;">
+        <div class="carousel-item active" style="height:90vh; object-fit: contain;">
           <img src="https://files.stocky.ai/uploads/2019/05/image-Happy-students-working-together-in-the-computer-room-stocky-ai-10420602.jpg" class="d-block w-100" alt="..." >
           <div class="carousel-caption d-none d-md-block">
             <h5>First slide label</h5>
             <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
           </div>
         </div>
-        <div class="carousel-item" style="height:570px; object-fit: contain;">
+        <div class="carousel-item" style="height:90vh; object-fit: contain;">
           <img src="https://previews.123rf.com/images/ammentorp/ammentorp1403/ammentorp140300141/27147687-diverse-group-of-students-using-computer-for-finding-information-for-their-academic-project-happy-yo.jpg" class="d-block w-100" alt="..." >
           <div class="carousel-caption d-none d-md-block">
             <h5>Second slide label</h5>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
           </div>
         </div>
-        <div class="carousel-item" style="height:570px; object-fit: contain;">
+        <div class="carousel-item" style="height:90vh; object-fit: contain;">
           <img src="https://media.gettyimages.com/photos/happy-students-in-computer-class-picture-id170507140" class="d-block w-100" alt="..." >
           <div class="carousel-caption d-none d-md-block">
             <h5>Third slide label</h5>

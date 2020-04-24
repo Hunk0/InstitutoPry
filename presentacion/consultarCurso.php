@@ -45,7 +45,7 @@ $cursos = $curso->consultarCursos();
 		<div class="col-12">
 			<div class="card">
 				
-				<div class="card-body">
+				<div class="card-body table-responsive">
 					<table class="table table-striped table-hover">
 						<thead>
 							<tr>
@@ -65,7 +65,7 @@ $cursos = $curso->consultarCursos();
 								echo "<td><a href='index.php?pid=".base64_encode("presentacion/consultarMateria.php")."&idCurso=".$c->getId()."' >" . $c->getNombre() . "</a></td>";
 								echo "<td>" . $c->getFecha() . "</td>";
 								echo "<td>" . $c->getDirector() . "</td>";
-								echo "<td> </td>";//.
+								echo "<td>" . count($c->consultarMatriculas()) . "</td>";//.
 								echo "<td> </td>";//servicios
 								/*							
 								echo "<td>" . "

@@ -80,7 +80,7 @@ if(isset($_GET["idCurso"])){
 		<div class="col-12">
 			<div class="card">
 				
-				<div class="card-body">	
+				<div class="card-body table-responsive">	
 					Materias: <?php echo count($materias) ?>			
 					<table class="table table-striped table-hover">
 						<thead>

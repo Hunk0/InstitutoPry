@@ -12,33 +12,27 @@
     <div class="navbar-nav">
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Docentes
+          Consultar
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href='index.php?pid=<?php echo base64_encode("presentacion/profesor/consultarProfesor.php")?>'>Consular</a>
-          <a class="dropdown-item" href='index.php?pid=<?php echo base64_encode("presentacion/profesor/registrarProfesor.php")?>'>Nuevo docente</a>
+          <a class="dropdown-item" href='index.php?pid=<?php echo base64_encode("presentacion/profesor/consultarProfesor.php")?>'>Docentes</a>
+          <a class="dropdown-item" href='index.php?pid=<?php echo base64_encode("presentacion/estudiante/consultarEstudiante.php")?>'>Estudiantes</a>
+          <a class="dropdown-item" href='index.php?pid=<?php echo base64_encode("presentacion/consultarCurso.php")?>'>Cursos</a>
+          <a class="dropdown-item" href='index.php?pid=<?php echo base64_encode("presentacion/administrador/consultarSedes.php")?>'>Sedes</a>          
         </div>
       </li>
 
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Cursos
+          Agregar
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href='index.php?pid=<?php echo base64_encode("presentacion/consultarCurso.php")?>'>Consular</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Agregar nueva sede</a>
+          <a class="dropdown-item" href='index.php?pid=<?php echo base64_encode("presentacion/profesor/registrarProfesor.php")?>'>Docente</a>
+          <a class="dropdown-item" href='index.php?pid=<?php echo base64_encode("presentacion/registrarCurso.php")?>'>Curso</a>
+          <a class="dropdown-item" href='index.php?pid=<?php echo base64_encode("presentacion/administrador/registrarSede.php")?>'>Sede</a>
         </div>
       </li>
 
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Estudiantes
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href='index.php?pid=<?php echo base64_encode("presentacion/estudiante/consultarEstudiante.php")?>'>Consular</a>
-        </div>
-      </li>
     </div> 
     <ul class="navbar-nav ml-auto">
 

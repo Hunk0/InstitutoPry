@@ -48,8 +48,8 @@ class CursoDAO{
     function Buscar($like){
         return "SELECT idcurso
                 FROM curso
-                WHERE nombre LIKE '%".$like."%'
-                OR descripccion LIKE '%".$like."%'";
+                WHERE fechacierre >= CURDATE() AND (nombre LIKE '%".$like."%'
+                OR descripccion LIKE '%".$like."%')";
     }
 
     function consultarVariantes(){
@@ -102,6 +102,13 @@ class CursoDAO{
     function consultarCursos(){
         return "SELECT idcurso
                 FROM curso
+                ORDER BY fechacierre";
+    }
+
+    function consultarCursosAbiertos(){
+        return "SELECT idcurso
+                FROM curso
+                WHERE fechacierre >= CURDATE()
                 ORDER BY fechacierre";
     }
 

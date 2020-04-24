@@ -49,9 +49,9 @@ class Curso{
     function ultimoId(){
         $this -> conexion -> abrir();
         $this -> conexion -> ejecutar($this -> cursoDAO -> ultimoId());
+        echo $this -> cursoDAO -> ultimoId();
         $resultado = $this -> conexion -> extraer();
-        $this -> id = $resultado[0];
-        $this -> cursoDAO = new CursoDAO($resultado[0]);
+        return $resultado[0];
         $this -> conexion -> cerrar();
     }
 
@@ -85,6 +85,21 @@ class Curso{
     function consultarCursos(){
         $this -> conexion -> abrir();
         $this -> conexion -> ejecutar($this -> cursoDAO -> consultarCursos());
+        $registros = array();
+
+        for($i=0; $i<$this->conexion->numFilas() ; $i++){
+            $registro = $this->conexion->extraer();
+            $registros[$i] = new Curso($registro[0]);            
+            $registros[$i] -> consultar();
+        }
+
+        $this -> conexion -> cerrar();
+        return $registros;
+    }
+
+    function consultarCursosAbiertos(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> cursoDAO -> consultarCursosAbiertos());
         $registros = array();
 
         for($i=0; $i<$this->conexion->numFilas() ; $i++){

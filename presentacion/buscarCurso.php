@@ -30,7 +30,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['rol'])){
     <div id="resultadosBusqueda">
     <?php 
       $curso = new Curso();
-      $cursos=$curso->consultarCursos();
+      $cursos=$curso->consultarCursosAbiertos();
       echo '<p>'.count($cursos).' registro encontrados</p>';
       
       foreach ($cursos as $c){

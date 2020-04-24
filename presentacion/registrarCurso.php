@@ -61,8 +61,8 @@ if (isset($_POST["registrar"])) {
     if($error==""){
         $curso=new Curso("", $nombre, $descripccion, $fechacierre, $director);
         $curso -> registrar();
-        $curso -> ultimoId();
-        $id = $curso->getId();
+        $id =$curso -> ultimoId();
+        echo "----->".$id;
         $variante = new Variante();
         foreach($modalidades as $m){
             if(isset($_POST["modalidad".$m->getId()])){
@@ -74,7 +74,7 @@ if (isset($_POST["registrar"])) {
                     $vid = $variante -> getId();
                     $variante = new Variante($vid);
                     $variante -> consultar();
-
+                    
                     foreach($sedes as $s){
                         $variante -> InsertarSede($s);
                     }

@@ -53,13 +53,21 @@ class Sede{
 
         for($i=0; $i<$this->conexion->numFilas() ; $i++){
             $registro = $this->conexion->extraer();
-            $registros[$i] = new Sede($registro[0], $registro[1], $registro[2], $registro[3],  $registro[4]);
+            $registros[$i] = new Sede($registro[0]);
+            $registros[$i] -> consultar();
         }
 
         $this -> conexion -> cerrar();
         return $registros;
     }
 
+    function consultarMatriculas(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> sedeDAO -> consultarMatriculas());
+        $resultado = $this -> conexion -> extraer();
+        return $resultado[0];
+        $this -> conexion -> cerrar();
+    }
 
     function getId(){
         return $this -> id;

@@ -44,7 +44,7 @@ $profesores = $profesor->consultarTodos();
 		<div class="col-12">
 			<div class="card">
 				
-				<div class="card-body">
+				<div class="card-body table-responsive">
 					<table class="table table-striped table-hover">
 						<thead>
 							<tr>
@@ -65,8 +65,8 @@ $profesores = $profesor->consultarTodos();
 								echo "<td>" . $p->getNombres() . "</td>";
 								echo "<td>" . $p->getApellidos() . "</td>";
 								echo "<td>" . $p->getCorreo() . "</td>";
-                                echo "<td> </td>";//cursos
-								echo "<td> </td>";//materias
+                                echo "<td>". $p->cantCursos() ."</td>";//cursos
+								echo "<td>". $p->cantMaterias() ."</td>";//materias
 								echo "<td> </td>";//servicios
 								/*							
 								echo "<td>" . "

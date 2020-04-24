@@ -206,9 +206,15 @@ img {
                           $c->consultar();
                           if($c->getId()==$curso->getId()){
                               $habilitado=0;
-                          }
+                          }                          
                         }  
+                        $fechaactual=date("Y-m-d");
+                        if($curso->getFecha()<$fechaactual){
+                          $habilitado=0;
+                        }
                         echo '<button type="submit" name="registrar" class="btn btn-success" '.(($habilitado==0)?'disabled':' ').' >Inscribirse</button>';
+                        echo '<footer class="blockquote-footer">Este curso '.(($curso->getFecha()<$fechaactual)?'expiro':'expira').' el <cite title="Source Title">'.$curso->getFecha().'</cite></footer>';
+                        //echo "<br/>".date("Y-m-d")."<br/>".strtotime($curso->getFecha())."</br>".$curso->getFecha();
                       }
                     }else{
                       echo '<a type="button" href="#" data-toggle="modal" data-target="#sesion" class="btn btn-outline-success" role="button" aria-pressed="true">Inscribirse</a>';

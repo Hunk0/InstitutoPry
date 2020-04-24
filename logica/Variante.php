@@ -27,6 +27,7 @@ class Variante{
     function registrar(){
         $this -> conexion -> abrir();
         $this -> conexion -> ejecutar($this -> varianteDAO -> registrar());
+        echo $this -> varianteDAO -> registrar();
         $this -> conexion -> cerrar();
     }
 

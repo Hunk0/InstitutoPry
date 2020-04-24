@@ -55,6 +55,17 @@ class ProfesorDAO{
                 WHERE administrador.correo = '" . $this->correo . "' OR profesor.correo = '" . $this->correo . "' OR estudiante.correo = '" . $this->correo . "';";
     }
 
+    function cantCursos(){
+        return "SELECT count(idcurso)
+                FROM curso
+                WHERE director = '".$this->id."'";
+    }
+
+    function cantMaterias(){
+        return "SELECT count(idmateria)
+                FROM materia
+                WHERE profesor_idprofesor = '".$this->id."'";
+    }
 }
 
 ?>

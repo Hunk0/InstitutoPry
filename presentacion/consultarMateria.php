@@ -24,7 +24,10 @@ if(isset($_GET["idCurso"])){
 			$r[$i] = array($m->getNombre() , count($matriculas));
 		}
 	}
-	//echo json_encode($r);
+	if(isset($_POST["actualizar"])){
+		$curso = new Curso($_GET["idCurso"], $_POST["nombre"], $_POST["descripccion"], $_POST["fecha"], $_POST["director"]);
+		$curso->actualizar();
+	}
 }else{
     header('Location: index.php');
 }
@@ -33,7 +36,7 @@ if(isset($_GET["idCurso"])){
 <div class="container">
 	<div class="row">
 		<div class="col-md-auto">
-			<h1 class="display-4"><?php echo $curso->getNombre()?></h1>
+			<h1 class="display-4"><?php echo $curso->getNombre()?> <a href="#" data-toggle="modal" data-target="#editModal"><i class="fas fa-pencil-alt"></i></a> </h1>
 		</div>
 		<div class="col">
 		<?php
@@ -100,7 +103,9 @@ if(isset($_GET["idCurso"])){
                                 $p = new Profesor($m->getProfesorId());
                                 $p -> consultar();
 								echo "<td>" . $p->getNombres() . "</td>";
-								echo "<td> </td>";//servicios
+								echo "<td>
+										<a href='#' class='eliminar' id='" . $p->getId() . "' style='color: #cc2121;' ><span class='fas fa-trash-alt' data-toggle='tooltip' class='tooltipLink' data-placement='top' data-original-title='Eliminar esta curso' ></span> </a>
+									 </td>";//servicios
 								echo "</tr>";
 							
 							}							
@@ -119,6 +124,61 @@ if(isset($_GET["idCurso"])){
 		</div>
 	</div>
 </div>
+
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalLabel">Editar Datos</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action=<?php echo "index.php?pid=" . base64_encode("presentacion/consultarMateria.php") . "&idCurso=" . $_GET["idCurso"] ?> method="post">
+        <div class="modal-body">
+
+        <div class="form-group">
+			<label for="desc">Nombre:</label>
+			<input type="text" name="nombre" class="form-control" required="required" value="<?php echo $curso->getNombre() ?>">
+		</div>
+		<div class="form-group">
+			<label for="desc">Descripccion:</label>
+			<textarea type="text" name="descripccion" class="form-control" id="desc" required="required" rows="3" ><?php echo substr(strip_tags($curso->getDescripccion()),0,110) ?></textarea>
+		</div>
+		<div class="form-group">
+			<label for="date-input" >Fecha de cierre:</label>
+			<input class="form-control" name="fecha" type="date" id="date-input" required="required" value="<?php echo $curso->getFecha() ?>">
+		</div>
+		<div class="form-group">
+			<label for="slcDirector">Director de curso:</label>
+			<select class="custom-select selectpicker form-control" name="director" required="required" data-live-search="true" id="slcDirector">
+			<option selected disabled value="">Elegir</option>
+			<?php
+				$profesor=new Profesor();
+				$profesores=$profesor->consultarTodos();
+				foreach($profesores as $p){
+					//echo "<option data-tokens='".$p->getNombres()." ".$p->getApellidos()."'>".$p->getNombres()." ".$p->getApellidos()."</option>";
+					if($p->getId()==$curso->getDirector()){
+						echo "<option selected value='".$p->getId()."'>".$p->getNombres()." ".$p->getApellidos()."</option>"; 
+					}else{
+						echo "<option value='".$p->getId()."'>".$p->getNombres()." ".$p->getApellidos()."</option>"; 
+					}
+					
+				}
+			?>
+			</select>
+		</div>
+            
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="submit" name="actualizar" class="btn btn-primary">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 <script type="text/javascript">
 	$(document).ready(function() {
 	// show the alert

@@ -99,11 +99,18 @@
 
 <script type="text/javascript">
      var estado=<?php echo $matricula->getEstadoId()?>;
+     var content;
+        if($(<?php echo '"#M'.$matricula->getId().'"'?>).length != 0) {
+            
+            if($(<?php echo '"#M'.$matricula->getId().'"'?>).html()!=""){
+                console.log($(<?php echo '"#M'.$matricula->getId().'"'?>).html());
+                content=$(<?php echo '"#M'.$matricula->getId().'"'?>).html();
+            }
+        }
      
      $('#estadoPago').on('change.bootstrapSwitch', function (e, state) {
-        console.log(e.target.checked);
-        //alert(<?php echo $matricula->getId() ?>); 
-
+        
+        //alert(<?php echo $matricula->getId() ?>);         
         if (e.target.checked == true) {
             document.getElementById("estado").innerHTML = "Pago Aceptado";
             document.getElementById("eliminar").innerHTML = "";
@@ -111,6 +118,10 @@
 
             <?php echo "var ruta = \"indexAjax.php?pid=" . base64_encode("presentacion/EditorAjax.php") . "&idMatr=" . $matricula->getId() . "&estado=\"+estado ;\n"; ?>
             $(<?php echo '"#Matricula'.$matricula->getId().'"'?>).load(ruta);
+            if($(<?php echo '"#M'.$matricula->getId().'"'?>).length != 0) {
+                var data = $( '<div id="loaded-content" />' ).load(ruta);
+                $(<?php echo '"#M'.$matricula->getId().'"'?>).html("");
+            }            
             
         } else {            
             document.getElementById("estado").innerHTML = "Esperando Pago";
@@ -119,6 +130,10 @@
 
             <?php echo "var ruta = \"indexAjax.php?pid=" . base64_encode("presentacion/EditorAjax.php") . "&idMatr=" . $matricula->getId() . "&estado=\"+estado ;\n"; ?>
             $(<?php echo '"#Matricula'.$matricula->getId().'"'?>).load(ruta);
+            if($(<?php echo '"#M'.$matricula->getId().'"'?>).length != 0) {
+                var data = $( '<div id="loaded-content" />' ).load(ruta);
+                $(<?php echo '"#M'.$matricula->getId().'"'?>).html(content);               
+            }   
         }
     });
 </script>

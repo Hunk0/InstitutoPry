@@ -66,6 +66,12 @@ class ProfesorDAO{
                 FROM materia
                 WHERE profesor_idprofesor = '".$this->id."'";
     }
+
+    function eliminar(){
+        return "DELETE 
+                FROM profesor
+                WHERE idprofesor = '".$this->id."'";
+    }
 }
 
 ?>

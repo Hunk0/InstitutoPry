@@ -40,8 +40,8 @@
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
             Administrador  ­
           </a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" style="min-width: 0px; left: 50% !important;  right: auto !important;  text-align: center !important;  transform: translate(-50%, 0) !important;">
-            <a class="dropdown-item" href="#">Mi cuenta</a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href='index.php?pid=<?php echo base64_encode("presentacion/administrador/sesionAdministrador.php")?>'>Inicio</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href=<?php echo "index.php?salir=true"?>>Cerrar sesion</a>
           </div>

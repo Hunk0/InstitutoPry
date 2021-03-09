@@ -20,6 +20,12 @@ class MatriculaDAO{
                 WHERE idmatricula =" . $this->id . ";";  
     }
 
+    function consultarPendientes(){
+        return "SELECT idmatricula, 	estudiante_idestudiante, 	variante_idvariante, 	estado
+                FROM matricula
+                WHERE estado = '0';";  
+    }
+
     function eliminarMSede(){
         return "DELETE FROM sede_has_matricula
                 WHERE matricula_idmatricula  =" . $this->id . ";";

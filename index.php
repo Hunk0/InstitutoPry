@@ -66,7 +66,7 @@ require 'logica/Entrega.php';
 </body>
 
 <footer id="footer" class="container">
-    <br/><br/><br/><br/>
+    <br/><br/>
     <hr>
   <small class="float-right" >   
     <p class="float-right"><a href="checklist.php" style="color: #82888e;  text-decoration: none;">Estado del Sito</a><br/><a href="#" style="color: #82888e;  text-decoration: none;">Volver Arriba</a></p>

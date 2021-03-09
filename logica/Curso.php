@@ -195,6 +195,12 @@ class Curso{
         
     }
 
+    function eliminar(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> cursoDAO ->eliminar());
+        $this -> conexion -> cerrar();
+    }
+
     function getId(){
         return $this -> id;
     }

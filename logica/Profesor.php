@@ -111,6 +111,12 @@ class Profesor extends Persona{
         $this -> conexion -> cerrar();
     }
 
+    function eliminar(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> profesorDAO ->eliminar());
+        $this -> conexion -> cerrar();
+    }
+
     function getCorreo(){
         return $this -> correo;
     }

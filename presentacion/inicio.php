@@ -14,6 +14,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['rol'])){
 }
 ?>
 <div>
+  <br/><br/>
   <div class="bd-example">
     <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel" style="height:90vh;">
       <ol class="carousel-indicators">
@@ -55,9 +56,9 @@ if(isset($_SESSION['id']) && isset($_SESSION['rol'])){
     </div>
   </div>
 </div>
-<div class="jumbotron">
+<div class="jumbotron jumbotron-fluid">
     <div class="container">
-      <h1 class="display-3">Cursos increibles esperandote!</h1>
+      <h1 class="display-3 text-break">Cursos increibles esperandote!</h1>
       <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
       <p><a class="btn btn-primary btn-lg" href='index.php?pid=<?php echo base64_encode("presentacion/buscarCurso.php")?>' role="button">Ver Cursos »</a></p>
     </div>

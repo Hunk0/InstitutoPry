@@ -34,6 +34,20 @@ class Matricula{
         $this -> conexion -> cerrar();
     }
 
+    function consultarPendientes(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> matriculaDAO -> consultarPendientes());
+        $registros = array();
+
+        for($i=0; $i<$this->conexion->numFilas() ; $i++){
+            $registro = $this->conexion->extraer();
+            $registros[$i] = new Matricula($registro[0], $registro[1], $registro[2], $registro[3]);
+        }
+
+        $this -> conexion -> cerrar();
+        return $registros;
+    }
+
     function registrar(){
         $this -> conexion -> abrir();
         $this -> conexion -> ejecutar($this -> matriculaDAO -> registrar());

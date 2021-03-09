@@ -136,7 +136,11 @@ class CursoDAO{
                 WHERE imagen.curso_idcurso='" . $this -> id . "'";
     }
 
-
+    function eliminar(){
+        return "DELETE 
+                FROM curso
+                WHERE idcurso = '".$this->id."'";
+    }
 }
 
 ?>
